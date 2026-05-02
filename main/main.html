@@ -171,7 +171,50 @@
             item.addEventListener("click", archiveItem)
         })
 
-        // Next? BOM! simpen semua data dalam localStorage
+        // Handling Search
+        function searchTodo(e) {
+            const keyword = e.target.value.toLowerCase().trim()
+
+            const rawData = JSON.parse(localStorage.getItem("todos")) || [];
+            const filteredData = rawData.filter(item => {
+                return item.todo.toLowerCase().includes(keyword) && item.isArchived === false
+            })
+
+            const taskList = document.querySelector(".task-container")
+            taskList.innerHTML = ""
+
+            filteredData.forEach(item => {
+                const taskHTML = `
+                    <article class="task-item" data-id=${item.id}>
+                        <button type="button">
+                            <img src=".././assets/buleud.svg" alt="">
+                        </button>
+                        <p>${item.todo}</p>
+                    </article>
+                `
+                taskList.insertAdjacentHTML('beforeend', taskHTML)
+            })
+        }
+
+        function debounce(func, delay) {
+            // Fungsi untuk memberikan delay ketika user memberikan "input"
+            // Tanpa ini fungsi akan langsung dijalankan setiap user ngetik 1 karakter
+
+            let timer;
+
+            return (...args) => {
+                clearTimeout(timer)
+
+                timer = setTimeout(() => {
+                    func.apply(this, args);
+                }, delay)
+            }
+        }
+
+        const findTodo = debounce(searchTodo, 500)
+
+        const searchInput = document.querySelector(".form-search")
+        searchInput.addEventListener("input", findTodo)
     </script>
 </body>
 
