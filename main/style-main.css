@@ -1,0 +1,119 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+header {
+    background-color: green;
+    padding: 24px 64px;
+}
+
+header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-link {
+    display: flex;
+    gap: 12px;
+}
+
+.nav-link a {
+    text-decoration: none;
+    color: wheat;
+}
+
+main {
+    background-color: blue;
+    min-height: 100vh;
+    padding: 1px;
+}
+
+.create-task {
+    margin: 120px 120px;
+    padding: 48px;
+    background-color: wheat;
+    border-radius: 16px;
+    border: none;
+}
+
+.create-task h1 {
+    padding: 12px 64px 12px 8px;
+}
+
+.form-task {
+    display: flex;
+    gap: 16px;
+}
+
+.form-task input {
+    border-radius: 8px;
+    flex: 1;
+    border: none;
+    padding: 16px;
+}
+
+.form-task button {
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+}
+
+.task-list {
+    background-color: wheat;
+    margin: 120px 120px;
+    padding: 48px;
+    border-radius: 8px;
+    border: none;
+}
+
+.task-list h1 {
+    padding: 8px 8px 16px 8px;
+}
+
+.task-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: white;
+    display: flex;
+    gap: 16px;
+    border-radius: 4px;
+    border: none;
+    padding: 24px;
+    margin: 16px 16px 16px 8px;
+    flex: 1;
+}
+
+.task-item button {
+    border: none;
+    background-color: white;
+}
+
+.task-item p {
+    margin: 0;
+}
+
+.task-item img {
+    display: block;
+    cursor: pointer;
+}
+
+footer {
+    background-color: red;
+    min-height: 4vh;
+}
+
+footer p {
+    padding: 24px;
+}
+
+.checked p {
+    text-decoration: line-through;
+    color: #888
+}
+
+.checked button {
+    background-color: #d1ffd1;
+}
