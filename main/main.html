@@ -27,6 +27,13 @@
             </form>
         </div>
 
+        <div class="search-task">
+            <h1>Search Your Task</h1>
+            <form action="" class="form-search">
+                <input type="text" placeholder="Find your todo">
+            </form>
+        </div>
+
         <div class="task-list">
             <h1>Your Todo List</h1>
             <div class="task-container">
@@ -50,9 +57,6 @@
     </footer>
 
     <script>
-        // Todo: Buat search dan filter -> show dulu tuh di laman archived
-
-
         // Menambahkan todo page tapi manual
         /*
         Lesson learn dari sini adalah: proses pembuatan tag html (DOM) lebih baik bottom-up
@@ -88,7 +92,6 @@
 
         const CreateTaskContainer = document.querySelector(".form-task")
         CreateTaskContainer.addEventListener("submit", function (event) {
-            event.preventDefault()
 
             const userInput = event.target.querySelector("input").value
 

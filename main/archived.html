@@ -66,7 +66,6 @@
             // console.log(archivedTodo)
             const archivedTask = e.target.closest(".archived-item")
             const targetedId = archivedTask.dataset.id
-            console.log(archivedTask)
 
             const updateData = dataTodo.map(item => {
                 if (item.id == targetedId) {

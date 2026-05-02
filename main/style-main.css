@@ -60,6 +60,21 @@ main {
     border: none;
 }
 
+.search-task {
+    background-color: wheat;
+    margin: 128px;
+    padding: 32px;
+    border-radius: 8px;
+}
+
+.search-task input {
+    border-radius: 8px;
+    flex: 1px;
+    border: none;
+    padding: 12px;
+    margin: 8px auto;
+}
+
 .task-list {
     background-color: wheat;
     margin: 120px 120px;
