@@ -1,0 +1,158 @@
+// Menambahkan todo page tapi manual
+/*
+Lesson learn dari sini adalah: proses pembuatan tag html (DOM) lebih baik bottom-up
+artinya buat dulu image, masukin ke button, buat p yang sejajar dengan button. 
+lalu button dan image di masukkan ke article.
+
+nah ketika article sudah dibuat kita harus nampilin lagi ke html yang ada
+dengan mengugnakan queryselector kita mencari tag yang saat ini sudah ada (bukan create)
+lalu kita tambahin deh di bawahnya (appendchild) ke container yang sudah ada itu.
+*/
+
+// CREATE
+function addTodo(todosData) {
+    const img = document.createElement("img");
+    img.src = ".././assets/buleud.svg"
+
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.appendChild(img)
+
+    const p = document.createElement("p");
+    p.textContent = todosData.todo; // Ini teks baru dari user
+
+    const article = document.createElement("article");
+    article.classList.add("task-item")
+    article.setAttribute("data-id", todosData.id)
+    article.appendChild(btn)
+    article.appendChild(p)
+
+    const Taskcontainer = document.querySelector(".task-container")
+    Taskcontainer.appendChild(article)
+}
+
+const CreateTaskContainer = document.querySelector(".form-task")
+CreateTaskContainer.addEventListener("submit", function (event) {
+
+    const userInput = event.target.querySelector("input").value
+
+    const data = JSON.parse(localStorage.getItem("todos")) || [];
+    const todosData = {
+        "id": Date.now(),
+        "todo": userInput,
+        "isArchived": false
+    }
+
+    data.push(todosData)
+
+    addTodo(todosData) // UBah tampilan
+    localStorage.setItem("todos", JSON.stringify(data)) // simpan di BE/localstorage
+})
+
+// Read
+function readTodosHTML() {
+    const data = JSON.parse(localStorage.getItem("todos")) || [];
+    const uncheckedTodo = data.filter(data => data.isArchived == false)
+
+    const taskList = document.querySelector(".task-container")
+    taskList.innerHTML = ""; // Ini reset biar nanti ga deduplikasi. Ga ada ini tasklist akan ngambil data todos berulang.
+
+    uncheckedTodo.forEach(item => {
+        // console.log(item)
+        const taskHTML = `
+                    <article class="task-item" data-id=${item.id}>
+                        <button type="button">
+                            <img src=".././assets/buleud.svg" alt="">
+                        </button>
+                        <p>${item.todo}</p>
+                    </article>
+                `
+        taskList.insertAdjacentHTML('beforeend', taskHTML)
+    })
+}
+
+document.addEventListener("DOMContentLoaded", readTodosHTML)
+
+// Update
+function archiveItem(e) {
+    // di bawah ini nempelnya ke image karena .target merujuk pada tag yang diklik oleh user
+    // console.log(e.target)
+
+    // di bawah ini nempelnya ke tempat kita memasang eventlistener (button)
+    // console.log(e.currentTarget)
+
+    const data = JSON.parse(localStorage.getItem("todos")) || [];
+
+    const itemTask = e.target.closest(".task-item")
+    const targetId = Number(itemTask.dataset.id)
+
+    // map digunakan untuk mengambil data satu per satu lalu kita ubah menjadi true.
+    const updateData = data.map(item => {
+        if (item.id == targetId) {
+            return { ...item, isArchived: true }
+        }
+        return item
+    })
+
+    localStorage.setItem("todos", JSON.stringify(updateData))
+
+    if (itemTask) {
+        itemTask.classList.add("checked");
+
+        // Biar ada animasinya sebelum didelete
+        setTimeout(function () {
+            itemTask.remove();
+        }, 500);
+    }
+}
+
+const itemTaskButton = document.querySelectorAll(".task-container")
+
+itemTaskButton.forEach(function (item) {
+    item.addEventListener("click", archiveItem)
+})
+
+// Handling Search
+function searchTodo(e) {
+    const keyword = e.target.value.toLowerCase().trim()
+
+    const rawData = JSON.parse(localStorage.getItem("todos")) || [];
+    const filteredData = rawData.filter(item => {
+        return item.todo.toLowerCase().includes(keyword) && item.isArchived === false
+    })
+
+    const taskList = document.querySelector(".task-container")
+    taskList.innerHTML = ""
+
+    filteredData.forEach(item => {
+        const taskHTML = `
+                    <article class="task-item" data-id=${item.id}>
+                        <button type="button">
+                            <img src=".././assets/buleud.svg" alt="">
+                        </button>
+                        <p>${item.todo}</p>
+                    </article>
+                `
+        taskList.insertAdjacentHTML('beforeend', taskHTML)
+    })
+}
+
+function debounce(func, delay) {
+    // Fungsi untuk memberikan delay ketika user memberikan "input"
+    // Tanpa ini fungsi akan langsung dijalankan setiap user ngetik 1 karakter
+
+    let timer;
+
+    return (...args) => {
+        clearTimeout(timer)
+
+        timer = setTimeout(() => {
+            func.apply(this, args);
+        }, delay)
+    }
+}
+
+const findTodo = debounce(searchTodo, 500)
+
+const searchInput = document.querySelector(".form-search")
+searchInput.addEventListener("input", findTodo)
