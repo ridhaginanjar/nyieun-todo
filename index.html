@@ -1,51 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>NyieunTudu - Task Manager</title>
 </head>
+
 <body>
     <aside>
         <h1>NyieunTudu</h1>
+        <nav>
+            <p>Dashboard</p>
+            <p>Settings</p>
+        </nav>
     </aside>
     <main>
         <div class="date-info">
-            <h1>Today</h1>
-            <p>Date</p>
+            <h2>Today</h2>
+            <time datetime="2026-05-06">6 May 2026</time>
         </div>
         <div class="todo-card">
             <form action="">
-                <label for=""></label>
-                <input type="text" name="" id="">
+                <input type="text" name="task-name" id="task-name">
+                <label for="task-name">Input your task</label>
+
+                <input type="date" name="task-deadline" id="task-deadline">
+                <label for="task-deadline">Set your deadline</label>
+
+                <input type="radio" name="task-priority" id="high-priority" value="High">
+                <label for="task-priority">High priority</label>
+
+                <input type="radio" name="task-priority" id="med-priority" value="Medium">
+                <label for="task-priority">Medium priority</label>
+
+                <input type="radio" name="task-priority" id="low-priority" value="Low">
+                <label for="task-priority">Low priority</label>
+
+                <button>Create Task</button>
             </form>
         </div>
-        <div class="todo-table">
-            <article>
-                <div class="task-info">
-                    <img src="todo-button" alt="">
-                    <h1>My First todo</h1>
-                    <p>detailed todo</p>
-                </div>
-                <div class="task-deadline">
-                    <img src="date-icon" alt="">
-                    <p>deadline todo</p>
-                </div>
-                <div class="task-priority">
-                    <img src="priority-icon" alt="">
-                    <p>priority</p>
-                </div>
-                <div class="task-action">
-                    <img src="edit-icon" alt="">
-                    <p>Edit</p>
-                    <img src="del-icon" alt="">
-                    <p>delete</p>
-                </div>
-            </article>
+        <div class="tab-bar">
+            <button type="button">All</button>
+            <button type="button">Success</button>
+            <button type="button">Completed</button>
         </div>
-        <footer>
-            Copyright 2026
-        </footer>
+        <div id="panel-all">
+            <ul class="todo-list">
+                <li>
+                    <article class="todo-item">
+                        <button type="button">
+                            <img src="todo-button" alt="">
+                        </button>
+                        <div class="task-info">
+                            <h3>My First todo</h3>
+                            <p>detailed todo</p>
+                        </div>
+                        <div class="task-deadline">
+                            <img src="date-icon" alt="">
+                            <span>deadline todo</span>
+                        </div>
+                        <div class="task-priority">
+                            <img src="priority-icon" alt="">
+                            <span>priority</span>
+                        </div>
+                        <div class="task-action">
+                            <button type="button">Edit</button>
+                            <button type="button">Delete</button>
+                        </div>
+                    </article>
+                </li>
+            </ul>
+        </div>
+        <div id="panel-active">
+            <ul class="todo-list">
+                <li>
+                    <article class="todo-item">
+                        <button type="button">
+                            <img src="todo-button" alt="">
+                        </button>
+                        <div class="task-info">
+                            <h3>My Active todo</h3>
+                            <p>detailed todo</p>
+                        </div>
+                        <div class="task-deadline">
+                            <img src="date-icon" alt="">
+                            <span>deadline todo</span>
+                        </div>
+                        <div class="task-priority">
+                            <img src="priority-icon" alt="">
+                            <span>priority</span>
+                        </div>
+                        <div class="task-action">
+                            <button type="button">Edit</button>
+                            <button type="button">Delete</button>
+                        </div>
+                    </article>
+                </li>
+            </ul>
+        </div>
+        <div id="panel-completed">
+            <ul class="todo-list">
+                <li>
+                    <article class="todo-item">
+                        <button type="button">
+                            <img src="todo-button" alt="">
+                        </button>
+                        <div class="task-info">
+                            <h3>My Completed todo</h3>
+                            <p>detailed todo</p>
+                        </div>
+                        <div class="task-deadline">
+                            <img src="date-icon" alt="">
+                            <span>deadline todo</span>
+                        </div>
+                        <div class="task-priority">
+                            <img src="priority-icon" alt="">
+                            <span>priority</span>
+                        </div>
+                        <div class="task-action">
+                            <button type="button">Edit</button>
+                            <button type="button">Delete</button>
+                        </div>
+                    </article>
+                </li>
+            </ul>
+        </div>
     </main>
+    <footer>
+        <p>Copyright 2026</p>
+    </footer>
 </body>
+
 </html>
