@@ -29,13 +29,16 @@
                 <time datetime="2026-05-06">6 May 2026</time>
             </div>
             <form action="POST" class="task-form">
-                <label for="task-name">Input your task</label>
-                <input type="text" name="task-name" id="task-name" placeholder="What needs to be done?">
-
-                <label for="task-deadline">Set your deadline</label>
-                <input type="date" name="task-deadline" id="task-deadline">
-
+                <div class="task-name">
+                    <label for="task-name">Input your task</label>
+                    <input type="text" name="task-name" id="task-name" placeholder="What needs to be done?">
+                </div>
+                <div class="task-deadline">
+                    <label for="task-deadline">Set your deadline</label>
+                    <input type="date" name="task-deadline" id="task-deadline">
+                </div>
                 <div class="task-priority">
+                    <h3>Set your priority</h3>
                     <input type="radio" name="task-priority" id="high-priority" value="High">
                     <label for="task-priority">High priority</label>
 
@@ -45,7 +48,7 @@
                     <input type="radio" name="task-priority" id="low-priority" value="Low">
                     <label for="task-priority">Low priority</label>
                 </div>
-                <button>Create Task</button>
+                <button class="btn-clean-border">Create Task</button>
             </form>
         </div>
         <div class="tab-bar">

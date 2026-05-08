@@ -80,14 +80,20 @@ main {
 }
 
 .task-form {
+    border: 1px solid var(--icon-disabled);
+    border-radius: 10px;
+
     display: grid;
-    grid-template-areas:
-        "task-form"
-        "deadline"
-        "priority"
-        "submit";
-    align-items: center;
-    justify-content: center;
+    grid-template-columns: repeat(2, 1fr);
+    gap:10px;
+
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 24px;
+}
+.task-name, .task-deadline, .task-priority {
+    flex: repeat(2, 1fr);
 }
 
 .task-info {
