@@ -31,8 +31,8 @@ header {
 
 .navbar {
     display: grid;
-    grid-template-areas: 
-    "dashboard settings";
+    grid-template-areas:
+        "dashboard settings";
     grid-template-columns: 2;
     gap: 32px;
 }
@@ -40,7 +40,8 @@ header {
 main {
     min-height: 100vh;
 }
-.todo-card {
+
+.todo-card{
     background-color: #ffffff;
     min-height: 128px;
     display: flex;
@@ -49,59 +50,77 @@ main {
     justify-content: space-around;
     padding: 32px 64px;
 }
+
+.tab-bar {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 12px 16px;
+}
+
+.tab-btn {
+    padding: 6px 14px;
+    border: none;
+    border-radius: 6px;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    color: #6B6B6B;
+}
+
+
 .date-info {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom:24px;
+    margin-bottom: 24px;
 }
+
 .task-form {
     display: grid;
-    grid-template-areas: 
-    "task-form"
-    "deadline"
-    "priority"
-    "submit";
+    grid-template-areas:
+        "task-form"
+        "deadline"
+        "priority"
+        "submit";
     align-items: center;
     justify-content: center;
 }
+
 .task-info {
     display: flex;
     flex-direction: column;
     align-items: left;
 }
+
 .task-prior {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap:2px;
+    gap: 2px;
 }
+
 .task-deadline {
     display: flex;
     flex-direction: column;
 }
+
 .label-span {
-    font-size: 11px;        /* Ukuran label lebih kecil agar manis */
-    color: #888;            /* Warna abu-abu agar tidak dominan */
-    text-transform: uppercase; /* Opsional: membuat gaya modern */
+    font-size: 11px;
+    color: #888;
+    text-transform: uppercase;
     letter-spacing: 0.5px;
-    margin:0;
-    padding:0;
+    margin: 0;
+    padding: 0;
 }
+
 .info-priority {
     display: flex;
     align-items: center;
-    gap:6px;
-}
-
-.tab-bar {
-    background-color: #ffffff;
-    min-height: 50px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 16px;
-    justify-content: center;
+    gap: 6px;
 }
 
 #panel-all {
@@ -111,6 +130,7 @@ main {
 #panel-active {
     background-color: #ffffff;
 }
+
 #panel-completed {
     background-color: #ffffff;
 }
@@ -118,7 +138,7 @@ main {
 .todo-list {
     list-style: none;
     border-bottom: 2px solid #F1E4F1;
-    padding:12px 0;
+    padding: 12px 0;
 }
 
 .todo-item {
@@ -128,12 +148,14 @@ main {
     gap: 32px;
     padding: 16px;
 }
+
 .task-btn {
-    flex:0;
+    flex: 0;
     justify-content: center;
     align-items: center;
     margin-top: 3px;
 }
+
 .task-btn img {
     width: 20px;
     height: 20px;
@@ -141,23 +163,25 @@ main {
 }
 
 .todo-ul {
-    flex:1;
+    flex: 1;
     max-width: 1000px;
     margin: 0 auto;
     padding: 0;
 }
 
 .task-info {
-    flex:3;
+    flex: 3;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap:4px;
+    gap: 4px;
 }
 
 .task-info h3 {
-    line-height: 1.2; /* Menjaga teks tetap rapat dan terkontrol */
-    margin-bottom: 2px; /* Jarak antara judul dan deskripsi */
+    line-height: 1.2;
+    /* Menjaga teks tetap rapat dan terkontrol */
+    margin-bottom: 2px;
+    /* Jarak antara judul dan deskripsi */
 }
 
 .task-info p {
@@ -166,28 +190,30 @@ main {
 }
 
 .task-deadline {
-    flex:1;
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     align-items: flex-end;
 }
 
-.task-prior{
-    flex:0;
+.task-prior {
+    flex: 0;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
 }
+
 .task-action {
-    flex:1;
+    flex: 1;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap:12px;
+    gap: 12px;
 }
+
 .info-deadline {
     display: flex;
     flex-direction: row;
@@ -197,11 +223,12 @@ main {
 
 .btn-clean-border {
     border-radius: 8px;
-    border:none;
+    border: none;
     outline: none;
     background: none;
-    cursor:pointer;
+    cursor: pointer;
 }
+
 .btn-submit {
     border: none;
     background-color: var(--icon-action);
