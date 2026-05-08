@@ -4,39 +4,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
     <title>NyieunTudu - Task Manager</title>
 </head>
 
 <body>
-    <aside>
+    <header>
         <h1>NyieunTudu</h1>
-        <nav>
-            <p>Dashboard</p>
-            <p>Settings</p>
+        <nav class="navbar">
+            <span class="dashboard-page">Dashboard</span>
+            <span class="settings-page">Dark Theme</span>
         </nav>
-    </aside>
+    </header>
     <main>
-        <div class="date-info">
-            <h2>Today</h2>
-            <time datetime="2026-05-06">6 May 2026</time>
-        </div>
         <div class="todo-card">
-            <form action="">
-                <input type="text" name="task-name" id="task-name">
+            <div class="date-info">
+                <h2>Today</h2>
+                <time datetime="2026-05-06">6 May 2026</time>
+            </div>
+            <form action="POST" class="task-form">
                 <label for="task-name">Input your task</label>
+                <input type="text" name="task-name" id="task-name">
 
-                <input type="date" name="task-deadline" id="task-deadline">
                 <label for="task-deadline">Set your deadline</label>
+                <input type="date" name="task-deadline" id="task-deadline">
 
-                <input type="radio" name="task-priority" id="high-priority" value="High">
-                <label for="task-priority">High priority</label>
+                <div class="task-priority">
+                    <input type="radio" name="task-priority" id="high-priority" value="High">
+                    <label for="task-priority">High priority</label>
+                    
+                    <input type="radio" name="task-priority" id="med-priority" value="Medium">
+                    <label for="task-priority">Medium priority</label>
 
-                <input type="radio" name="task-priority" id="med-priority" value="Medium">
-                <label for="task-priority">Medium priority</label>
-
-                <input type="radio" name="task-priority" id="low-priority" value="Low">
-                <label for="task-priority">Low priority</label>
-
+                    <input type="radio" name="task-priority" id="low-priority" value="Low">
+                    <label for="task-priority">Low priority</label>
+                </div>
                 <button>Create Task</button>
             </form>
         </div>
@@ -49,24 +51,24 @@
             <ul class="todo-list">
                 <li>
                     <article class="todo-item">
-                        <button type="button">
-                            <img src="todo-button" alt="">
+                        <button type="button" class="submit-btn btn-border">
+                            <img src="assets/circle.svg" alt="">
                         </button>
                         <div class="task-info">
                             <h3>My First todo</h3>
-                            <p>detailed todo</p>
+                            <p>Detailed todo</p>
                         </div>
                         <div class="task-deadline">
                             <img src="date-icon" alt="">
-                            <span>deadline todo</span>
+                            <span>Deadline todo</span>
                         </div>
                         <div class="task-priority">
                             <img src="priority-icon" alt="">
-                            <span>priority</span>
+                            <span>Priority</span>
                         </div>
                         <div class="task-action">
-                            <button type="button">Edit</button>
-                            <button type="button">Delete</button>
+                            <button type="button" class="btn-border">Edit</button>
+                            <button type="button" class="btn-border">Delete</button>
                         </div>
                     </article>
                 </li>
@@ -76,24 +78,24 @@
             <ul class="todo-list">
                 <li>
                     <article class="todo-item">
-                        <button type="button">
-                            <img src="todo-button" alt="">
+                        <button type="button" class="submit-btn btn-border">
+                            <img src="assets/circle.svg" alt="">
                         </button>
                         <div class="task-info">
                             <h3>My Active todo</h3>
-                            <p>detailed todo</p>
+                            <p>Detailed todo</p>
                         </div>
                         <div class="task-deadline">
                             <img src="date-icon" alt="">
-                            <span>deadline todo</span>
+                            <span>Deadline todo</span>
                         </div>
                         <div class="task-priority">
                             <img src="priority-icon" alt="">
-                            <span>priority</span>
+                            <span>Priority</span>
                         </div>
                         <div class="task-action">
-                            <button type="button">Edit</button>
-                            <button type="button">Delete</button>
+                            <button type="button" class="btn-border">Edit</button>
+                            <button type="button" class="btn-border">Delete</button>
                         </div>
                     </article>
                 </li>
@@ -103,24 +105,24 @@
             <ul class="todo-list">
                 <li>
                     <article class="todo-item">
-                        <button type="button">
-                            <img src="todo-button" alt="">
+                        <button type="button" class="submit-btn btn-border">
+                            <img src="assets/circle.svg" alt="">
                         </button>
                         <div class="task-info">
                             <h3>My Completed todo</h3>
-                            <p>detailed todo</p>
+                            <p>Detailed todo</p>
                         </div>
                         <div class="task-deadline">
                             <img src="date-icon" alt="">
-                            <span>deadline todo</span>
+                            <span>Deadline todo</span>
                         </div>
                         <div class="task-priority">
                             <img src="priority-icon" alt="">
-                            <span>priority</span>
+                            <span>Priority</span>
                         </div>
                         <div class="task-action">
-                            <button type="button">Edit</button>
-                            <button type="button">Delete</button>
+                            <button type="button" class="btn-border">Edit</button>
+                            <button type="button" class="btn-border">Restore</button>
                         </div>
                     </article>
                 </li>
