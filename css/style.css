@@ -1,10 +1,15 @@
+:root {
+    --font-sans: "Inter", "Helvetica Neue", Arial, sans-serif;
+}
+
 * {
     padding: 0;
     margin: 0;
+    font-family: var(--font-sans);
 }
 
 header {
-    background-color: grey;
+    background-color: #ffffff;
     padding: 32px 64px;
     display: flex;
     align-items: center;
@@ -23,7 +28,7 @@ main {
     min-height: 100vh;
 }
 .todo-card {
-    background-color: aqua;
+    background-color: #ffffff;
     min-height: 128px;
     display: flex;
     flex-direction: column;
@@ -47,9 +52,37 @@ main {
     align-items: center;
     justify-content: center;
 }
+.task-info {
+    display: grid;
+    grid-template-rows: 24px auto;
+    align-items: left;
+}
+.task-prior {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:2px;
+}
+.task-deadline {
+    display: flex;
+    flex-direction: column;
+}
+.label-span {
+    font-size: 11px;        /* Ukuran label lebih kecil agar manis */
+    color: #888;            /* Warna abu-abu agar tidak dominan */
+    text-transform: uppercase; /* Opsional: membuat gaya modern */
+    letter-spacing: 0.5px;
+    margin:0;
+    padding:0;
+}
+.info-priority {
+    display: flex;
+    align-items: center;
+    gap:6px;
+}
 
 .tab-bar {
-    background-color: blanchedalmond;
+    background-color: #ffffff;
     min-height: 50px;
     display: flex;
     flex-direction: row;
@@ -59,23 +92,34 @@ main {
 }
 
 #panel-all {
-    background-color: grey;
+    background-color: #ffffff;
 }
 
 #panel-active {
-    background-color: aqua;
+    background-color: #ffffff;
 }
 #panel-completed {
-    background-color: blanchedalmond;
+    background-color: #ffffff;
 }
 
 .todo-item {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 24px;
+    gap: 32px;
     padding: 16px;
 }
+.todo-list {
+    list-style: none;
+    border-bottom: 2px solid #F1E4F1;
+    padding:6px 0;
+}
+.todo-ul {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0;
+}
+
 .task-info {
     flex-grow:0;
     min-width:48vh;
