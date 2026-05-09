@@ -1,5 +1,44 @@
 :root {
     --font-sans: "Inter", "Helvetica Neue", Arial, sans-serif;
+
+    --background: #FFFFFF; 
+    --Text: #111111;
+    --Muted-gray: #F1E4F1; 
+    --Accent-Red: #E4E435; 
+    --Success: #2E7D32;
+    /* Base */
+    --color-background: #FFFFFF;
+    --color-surface: #FFFFFF;
+    --color-surface-muted: #F1F1F1;
+
+    /* Text */
+    --color-text-primary: #111111;
+    --color-text-secondary: #6B6B6B;
+    --color-text-muted: #A1A1A1;
+    --color-text-disabled: #D1D1D1;
+
+    /* Border / Divider */
+    --color-border: #DADADA;
+    --color-border-subtle: #E9E9E9;
+    --color-divider: rgba(17, 17, 17, 0.08);
+
+    /* Icon */
+    --color-icon-primary: #111111;
+    --color-icon-secondary: #6B6B6B;
+    --color-icon-muted: #A1A1A1;
+    --color-icon-disabled: #D1D1D1;
+    --color-icon-action: #dfdfdf;
+
+    /* Accent */
+    --color-accent: #E64E35;
+    --color-accent-hover: #D6453D;
+    --color-accent-soft: rgba(230, 78, 53, 0.10);
+
+    /* Success */
+    --color-success: #27A663;
+    --color-success-soft: rgba(39, 166, 99, 0.10);
+
+    /* Priority */
     --priority-high: #E64E35;
     --priority-medium: #F59E0B;
     --priority-low: #27A663;
@@ -8,11 +47,16 @@
     --priority-medium-bg: rgba(245, 158, 11, 0.12);
     --priority-low-bg: rgba(39, 166, 99, 0.10);
 
-    --icon-primary: #111111;
-    --icon-secondary: #6B6B6B;
-    --icon-muted: #A1A1A1;
-    --icon-action: #dfdfdf;
-    --icon-disabled: #D1D1D1;
+    /* Form */
+    --color-input-bg: #FFFFFF;
+    --color-input-border: #DADADA;
+    --color-input-border-focus: #111111;
+    --color-placeholder: #8A8A8A;
+
+    /* States */
+    --color-hover: rgba(17, 17, 17, 0.02);
+    --color-focus-ring: rgba(17, 17, 17, 0.16);
+    --color-disabled-bg: #F1F1F1;
 }
 
 * {
@@ -80,7 +124,7 @@ main {
 }
 
 .task-form {
-    border: 1px solid var(--icon-disabled);
+    border: 1px solid var(--color-icon-disabled);
     border-radius: 10px;
 
     display: grid;
@@ -105,7 +149,7 @@ main {
     gap:12px;
 }
 .task-input{
-    border: 1px solid var(--icon-secondary);
+    border: 1px solid var(--color-icon-secondary);
     border-radius: 4px;
     width: 100%;
     height: 32px;
@@ -131,11 +175,18 @@ main {
 
     outline: none;
     border-radius: 4px;
-    border: 1px solid var(--icon-secondary);
+    border: 1px solid var(--color-icon-secondary);
 
     font-family: var(--font-sans);
     font-size: 14px;
+
+    cursor: pointer;
 }
+
+.form-deadline input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+}
+
 .task-priority {
     grid-area:priority;
     display: flex;
@@ -150,6 +201,9 @@ main {
     justify-content: start;
     gap:48px;
 }
+.priority-options input {
+    cursor: pointer;
+}
 
 .task-priority legend {
     padding: 0;
@@ -162,10 +216,22 @@ main {
 .submit-task {
     grid-area: submit-task;
     width: 25%;
-    justify-self: end;
-    gap:12px;
-}
+    min-width: 25%;
+    height: 75%;
+    min-height: 25%;
 
+    align-self: end;
+    justify-self: end;
+
+    gap:12px;
+    background-color: var(--color-accent);
+    color: var(--color-background);
+
+    border:none;
+    border-radius:4px;
+
+    cursor: pointer;
+}
 
 .label-span {
     font-size: 11px;
@@ -304,7 +370,7 @@ main {
 
 .btn-submit {
     border: none;
-    background-color: var(--icon-action);
+    background-color: var(--color-icon-action);
     outline: none;
     border-radius: 4px;
     padding: 8px;
