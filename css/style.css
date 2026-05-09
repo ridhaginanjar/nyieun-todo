@@ -65,6 +65,15 @@
     font-family: var(--font-sans);
 }
 
+h1 {
+    font-size: 40px;
+}
+
+h2 {
+    font-size: 36px;
+}
+
+
 header {
     background-color: #ffffff;
     padding: 32px 64px;
@@ -87,7 +96,6 @@ main {
 
 .todo-card{
     background-color: #ffffff;
-    min-height: 128px;
     display: flex;
     flex-direction: column;
     align-items: left;
@@ -119,8 +127,11 @@ main {
 .date-info {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    margin-bottom: 24px;
+    align-items: flex-start;
+    padding: 24px;
+    max-width: 1000px;
+    margin: 0 auto; 
+    width: 100%;
 }
 
 .task-form {
@@ -132,12 +143,12 @@ main {
     grid-template-areas: 
     "task deadline"
     "priority submit-task";
-    gap:10px;
+    gap:24px;
 
     width: 100%;
     max-width: 1000px;
-    margin: 0 auto;
     padding: 24px;
+    margin: 0 auto;
 }
 
 .task-name {
