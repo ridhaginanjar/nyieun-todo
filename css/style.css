@@ -2,10 +2,10 @@
     --font-sans: "Inter", "Helvetica Neue", Arial, sans-serif;
 
     --background: #FFFFFF; 
-    --Text: #111111;
-    --Muted-gray: #F1E4F1; 
-    --Accent-Red: #E4E435; 
-    --Success: #2E7D32;
+    --text: #111111;
+    --muted-gray: #F1E4F1; 
+    --accent-red: #E4E435; 
+    --success: #2E7D32;
     /* Base */
     --color-background: #FFFFFF;
     --color-surface: #FFFFFF;
@@ -59,9 +59,15 @@
     --color-disabled-bg: #F1F1F1;
 }
 
-* {
+*,
+*::before,
+*::after {
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
+}
+
+body {
     font-family: var(--font-sans);
 }
 
@@ -75,7 +81,7 @@ h2 {
 
 
 header {
-    background-color: #ffffff;
+    background-color: var(--background);
     padding: 32px 64px;
     display: flex;
     align-items: center;
@@ -86,7 +92,6 @@ header {
     display: grid;
     grid-template-areas:
         "dashboard settings";
-    grid-template-columns: 2;
     gap: 32px;
 }
 
@@ -95,10 +100,10 @@ main {
 }
 
 .todo-card{
-    background-color: #ffffff;
+    background-color: var(--background);
     display: flex;
     flex-direction: column;
-    align-items: left;
+    align-items: flex-start;
     justify-content: space-around;
     padding: 32px 64px;
 }
@@ -120,7 +125,7 @@ main {
     cursor: pointer;
     font-size: 14px;
     font-weight: 500;
-    color: #6B6B6B;
+    color: var(--color-text-secondary);
 }
 
 
@@ -163,9 +168,9 @@ main {
     border: 1px solid var(--color-icon-secondary);
     border-radius: 4px;
     width: 100%;
-    height: 32px;
-    min-height: 32px;
     max-width: 460px;
+    height: 48px;
+    min-height: 48px;
     padding: 8px 12px;
 }
 .form-deadline {
@@ -179,8 +184,8 @@ main {
 }
 .form-deadline input[type="date"] {
     width: 100%;
-    height: 32px;
-    min-height: 32px;
+    height: 48px;
+    min-height: 48px;
     max-width: 460px;
     padding: 8px 12px;
 
@@ -246,25 +251,11 @@ main {
 
 .label-span {
     font-size: 11px;
-    color: #888;
+    color: var(--color-text-secondary);
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin: 0;
     padding: 0;
-}
-
-
-.task-info {
-    display: flex;
-    flex-direction: column;
-    align-items: left;
-}
-
-.task-prior {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
 }
 
 .info-priority {
@@ -274,15 +265,15 @@ main {
 }
 
 #panel-all {
-    background-color: #ffffff;
+    background-color: var(--background);
 }
 
 #panel-active {
-    background-color: #ffffff;
+    background-color: var(--background);
 }
 
 #panel-completed {
-    background-color: #ffffff;
+    background-color: var(--background);
 }
 
 .todo-list {
