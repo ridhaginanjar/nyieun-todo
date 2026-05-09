@@ -85,6 +85,9 @@ main {
 
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    grid-template-areas: 
+    "task deadline"
+    "priority submit-task";
     gap:10px;
 
     width: 100%;
@@ -92,9 +95,59 @@ main {
     margin: 0 auto;
     padding: 24px;
 }
-.task-name, .task-deadline, .task-priority {
-    flex: repeat(2, 1fr);
+
+.task-name {
+    grid-area: task;
+    display: flex;
+    flex-direction: column;
+    gap:12px;
 }
+.form-deadline {
+    grid-area: deadline;
+    display: flex;
+    flex-direction: column;
+    gap:12px;
+}
+.task-priority {
+    grid-area:priority;
+    display: flex;
+    flex-direction: column;
+    border: none;
+    padding-top: 8px;
+    min-inline-size: 0;
+}
+.priority-options {
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    gap:48px;
+}
+
+.task-priority legend {
+    padding: 0;
+    margin: 0 0 8px 0;
+
+    text-align: left;
+    font-weight: 600;
+}
+
+.submit-task {
+    grid-area: submit-task;
+    width: 25%;
+    justify-self: end;
+    gap:12px;
+}
+
+
+.label-span {
+    font-size: 11px;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0;
+    padding: 0;
+}
+
 
 .task-info {
     display: flex;
@@ -107,20 +160,6 @@ main {
     flex-direction: column;
     align-items: center;
     gap: 2px;
-}
-
-.task-deadline {
-    display: flex;
-    flex-direction: column;
-}
-
-.label-span {
-    font-size: 11px;
-    color: #888;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin: 0;
-    padding: 0;
 }
 
 .info-priority {

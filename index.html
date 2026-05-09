@@ -33,22 +33,29 @@
                     <label for="task-name">Input your task</label>
                     <input type="text" name="task-name" id="task-name" placeholder="What needs to be done?">
                 </div>
-                <div class="task-deadline">
-                    <label for="task-deadline">Set your deadline</label>
-                    <input type="date" name="task-deadline" id="task-deadline">
+                <div class="form-deadline">
+                    <label for="form-deadline">Set your deadline</label>
+                    <input type="date" name="form-deadline" id="form-deadline">
                 </div>
-                <div class="task-priority">
-                    <h3>Set your priority</h3>
-                    <input type="radio" name="task-priority" id="high-priority" value="High">
-                    <label for="task-priority">High priority</label>
+                <fieldset class="task-priority">
+                    <legend>Set Your Priority</legend>
 
-                    <input type="radio" name="task-priority" id="med-priority" value="Medium">
-                    <label for="task-priority">Medium priority</label>
-
-                    <input type="radio" name="task-priority" id="low-priority" value="Low">
-                    <label for="task-priority">Low priority</label>
-                </div>
-                <button class="btn-clean-border">Create Task</button>
+                    <div class="priority-options">
+                        <label for="high-priority">
+                            <input type="radio" name="task-priority" id="high-priority" value="High">
+                            High Priority
+                        </label>
+                        <label for="med-priority">
+                            <input type="radio" name="task-priority" id="med-priority" value="High">
+                            Medium Priority
+                        </label>
+                        <label for="low-priority">
+                            <input type="radio" name="task-priority" id="low-priority" value="High">
+                            Low Priority
+                        </label>
+                    </div>
+                </fieldset>
+                <button class="submit-task btn-clean-border">Create Task</button>
             </form>
         </div>
         <div class="tab-bar">
