@@ -16,6 +16,22 @@
 </head>
 
 <body>
+    <div id="media-blocker">
+        <div class="blocker-content">
+            <h1>Ups! Something is happening!</h1>
+            <div class="message-content">
+                <iframe src="https://giphy.com/embed/4Jc1KGhWoapxatzC9l" width="360" height="360" style="" frameBorder="0" class="giphy-embed" allowFullScreen>
+                </iframe>
+                <p>
+                    <a href="https://giphy.com/gifs/jokowi-fufufafa-bahlil-4Jc1KGhWoapxatzC9l"></a>
+                </p>
+                <p>The website only can used by using desktop during this state.</p>
+                <p>Support me with money 1 Million US Dollar to make it more responsive</p>
+                <p>Please open the website on the Desktop</p>
+            </div>
+        </div>
+    </div>
+    <div id="app-content">
     <header>
         <h1>NyieunTudu.</h1>
         <nav class="navbar">
@@ -23,198 +39,199 @@
             <a class="settings-page">Dark Theme</a>
         </nav>
     </header>
-    <main>
-        <div class="todo-card">
-            <div class="date-info">
-                <h2>Today</h2>
-                <time datetime="2026-05-06">6 May 2026</time>
-            </div>
-            <form method="POST" class="task-form">
-                <div class="task-name">
-                    <label for="task-name">Input your task</label>
-                    <input class="task-input" name="task-name" id="task-name" placeholder="What needs to be done?">
+        <main class="content-container">
+            <div class="todo-card">
+                <div class="date-info">
+                    <h2>Today</h2>
+                    <time datetime="2026-05-06">6 May 2026</time>
                 </div>
-                <div class="form-deadline">
-                    <label for="form-deadline">Set your deadline</label>
-                    <input 
-                        type="date" 
-                        name="form-deadline" 
-                        id="form-deadline"
-                    >
-                </div>
-                <fieldset class="task-priority">
-                    <legend>Set Your Priority</legend>
-
-                    <div class="priority-options">
-                        <label for="high-priority">
-                            <input type="radio" name="task-priority" id="high-priority" value="High">
-                            High Priority
-                        </label>
-                        <label for="med-priority">
-                            <input type="radio" name="task-priority" id="med-priority" value="Medium">
-                            Medium Priority
-                        </label>
-                        <label for="low-priority">
-                            <input type="radio" name="task-priority" id="low-priority" value="Low">
-                            Low Priority
-                        </label>
+                <form method="POST" class="task-form">
+                    <div class="task-name">
+                        <label for="task-name">Input your task</label>
+                        <input class="task-input" name="task-name" id="task-name" placeholder="What needs to be done?">
                     </div>
-                </fieldset>
-                <button class="submit-task" type="submit">
-                    &plus; Create Task
+                    <div class="form-deadline">
+                        <label for="form-deadline">Set your deadline</label>
+                        <input 
+                            type="date" 
+                            name="form-deadline" 
+                            id="form-deadline"
+                        >
+                    </div>
+                    <fieldset class="task-priority">
+                        <legend>Set Your Priority</legend>
+
+                        <div class="priority-options">
+                            <label for="high-priority">
+                                <input type="radio" name="task-priority" id="high-priority" value="High">
+                                High Priority
+                            </label>
+                            <label for="med-priority">
+                                <input type="radio" name="task-priority" id="med-priority" value="Medium">
+                                Medium Priority
+                            </label>
+                            <label for="low-priority">
+                                <input type="radio" name="task-priority" id="low-priority" value="Low">
+                                Low Priority
+                            </label>
+                        </div>
+                    </fieldset>
+                    <button class="submit-task" type="submit">
+                        &plus; Create Task
+                    </button>
+                </form>
+            </div>
+            <div class="tab-bar" role="tablist" aria-label="todo-filter">
+                <button type="button" class="tab-btn btn-clean-border" aria-selected="true" aria-controls="panel-all" role="tab">
+                    All
                 </button>
-            </form>
-        </div>
-        <div class="tab-bar" role="tablist" aria-label="todo-filter">
-            <button type="button" class="tab-btn btn-clean-border" aria-selected="true" aria-controls="panel-all" role="tab">
-                All
-            </button>
-            <button type="button" class="tab-btn btn-clean-border" aria-selected="false" aria-controls="panel-active" role="tab">
-                Success
-            </button>
-            <button type="button" class="tab-btn btn-clean-border" aria-selected="false" aria-controls="panel-completed" role="tab">
-                Completed
-            </button>
-        </div>
-        <div id="panel-all" role="tabpanel" aria-labelledby="tab-all">
-            <ul class="todo-ul">
-                <li class="todo-list">
-                    <article class="todo-item">
-                        <button type="button" class="task-btn btn-clean-border">
-                            <img src="assets/circle.svg" alt="Completed">
-                        </button>
-                        <div class="task-info">
-                            <h3>My First todo</h3>
-                            <p>Detailed todo</p>
-                        </div>
-                        <div class="task-deadline">
-                            <span class="label-span">Deadline todo</span>
-                            <div class="info-deadline">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                    <path fill="#6B6B6B" d="M9 11H7v2h2zm4 0h-2v2h2zm4 0h-2v2h2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2m0 16H5V9h14z"/>
-                                </svg>
-                                <h4>May 6, 2026</h4>
+                <button type="button" class="tab-btn btn-clean-border" aria-selected="false" aria-controls="panel-active" role="tab">
+                    Success
+                </button>
+                <button type="button" class="tab-btn btn-clean-border" aria-selected="false" aria-controls="panel-completed" role="tab">
+                    Completed
+                </button>
+            </div>
+            <div id="panel-all" role="tabpanel" aria-labelledby="tab-all">
+                <ul class="todo-ul">
+                    <li class="todo-list">
+                        <article class="todo-item">
+                            <button type="button" class="task-btn btn-clean-border">
+                                <img src="assets/circle.svg" alt="Completed">
+                            </button>
+                            <div class="task-info">
+                                <h3>My First todo</h3>
+                                <p>Detailed todo</p>
                             </div>
-                        </div>
+                            <div class="task-deadline">
+                                <span class="label-span">Deadline todo</span>
+                                <div class="info-deadline">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                        <path fill="#6B6B6B" d="M9 11H7v2h2zm4 0h-2v2h2zm4 0h-2v2h2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2m0 16H5V9h14z"/>
+                                    </svg>
+                                    <h4>May 6, 2026</h4>
+                                </div>
+                            </div>
+                            <div class="task-prior">
+                                <span class="label-span">Priority</span>
+                                <div class="info-priority">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+                                        <path fill="#d6453d" d="M12 7.5A4.5 4.5 0 0 1 7.5 12A4.5 4.5 0 0 1 3 7.5A4.5 4.5 0 0 1 7.5 3A4.5 4.5 0 0 1 12 7.5"/>
+                                    </svg>
+                                    <h4>High</h4>
+                                </div>
+                            </div>
+                            <div class="task-action">
+                                <button type="button" class="btn-submit" aria-label="Edit Task">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                        <path fill="none" stroke="#111111" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14 6l2.293-2.293a1 1 0 0 1 1.414 0l2.586 2.586a1 1 0 0 1 0 1.414L18 10m-4-4l-9.707 9.707a1 1 0 0 0-.293.707V19a1 1 0 0 0 1 1h2.586a1 1 0 0 0 .707-.293L18 10m-4-4l4 4" />
+                                    </svg>
+                                </button>
+                                <button type="button" class="btn-submit" aria-label="Delete Task">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                        <path fill="none" stroke="#111111" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7a3 3 0 0 1 3-3v0a3 3 0 0 1 3 3v0M9 7h6M9 7H6m9 0h3m2 0h-2M4 7h2m0 0v11a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </article>
+                    </li>
+                </ul>
+            </div>
+            <div id="panel-active" role="tabpanel" aria-labelledby="tab-active">
+                <ul class="todo-ul">
+                    <li class="todo-list">
+                        <article class="todo-item">
+                            <button type="button" class="task-btn btn-clean-border">
+                                <img src="assets/circle.svg" alt="Completed">
+                            </button>
+                            <div class="task-info">
+                                <h3>My Active todo</h3>
+                                <p>Detailed todo</p>
+                            </div>
+                            <div class="task-deadline">
+                                <span class="label-span">Deadline todo</span>
+                                <div class="info-deadline">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                        <path fill="#6B6B6B" d="M9 11H7v2h2zm4 0h-2v2h2zm4 0h-2v2h2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2m0 16H5V9h14z"/>
+                                    </svg>
+                                    <h4>May 6, 2026</h4>
+                                </div>
+                            </div>
                         <div class="task-prior">
-                            <span class="label-span">Priority</span>
-                            <div class="info-priority">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-                                    <path fill="#d6453d" d="M12 7.5A4.5 4.5 0 0 1 7.5 12A4.5 4.5 0 0 1 3 7.5A4.5 4.5 0 0 1 7.5 3A4.5 4.5 0 0 1 12 7.5"/>
-                                </svg>
-                                <h4>High</h4>
+                                <span class="label-span">Priority</span>
+                                <div class="info-priority">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+                                        <path fill="#F59E0B" d="M12 7.5A4.5 4.5 0 0 1 7.5 12A4.5 4.5 0 0 1 3 7.5A4.5 4.5 0 0 1 7.5 3A4.5 4.5 0 0 1 12 7.5"/>
+                                    </svg>
+                                    <h4>Low</h4>
+                                </div>
                             </div>
-                        </div>
-                        <div class="task-action">
-                            <button type="button" class="btn-submit" aria-label="Edit Task">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                                    <path fill="none" stroke="#111111" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14 6l2.293-2.293a1 1 0 0 1 1.414 0l2.586 2.586a1 1 0 0 1 0 1.414L18 10m-4-4l-9.707 9.707a1 1 0 0 0-.293.707V19a1 1 0 0 0 1 1h2.586a1 1 0 0 0 .707-.293L18 10m-4-4l4 4" />
-                                </svg>
-                            </button>
-                            <button type="button" class="btn-submit" aria-label="Delete Task">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                                    <path fill="none" stroke="#111111" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7a3 3 0 0 1 3-3v0a3 3 0 0 1 3 3v0M9 7h6M9 7H6m9 0h3m2 0h-2M4 7h2m0 0v11a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7" />
-                                </svg>
-                            </button>
-                        </div>
-                    </article>
-                </li>
-            </ul>
-        </div>
-        <div id="panel-active" role="tabpanel" aria-labelledby="tab-active">
-            <ul class="todo-ul">
-                <li class="todo-list">
-                    <article class="todo-item">
-                        <button type="button" class="task-btn btn-clean-border">
-                            <img src="assets/circle.svg" alt="Completed">
-                        </button>
-                        <div class="task-info">
-                            <h3>My Active todo</h3>
-                            <p>Detailed todo</p>
-                        </div>
-                        <div class="task-deadline">
-                            <span class="label-span">Deadline todo</span>
-                            <div class="info-deadline">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                    <path fill="#6B6B6B" d="M9 11H7v2h2zm4 0h-2v2h2zm4 0h-2v2h2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2m0 16H5V9h14z"/>
-                                </svg>
-                                <h4>May 6, 2026</h4>
+                            <div class="task-action">
+                                <button type="button" class="btn-submit" aria-label="Edit Task">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                        <path fill="none" stroke="#111111" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14 6l2.293-2.293a1 1 0 0 1 1.414 0l2.586 2.586a1 1 0 0 1 0 1.414L18 10m-4-4l-9.707 9.707a1 1 0 0 0-.293.707V19a1 1 0 0 0 1 1h2.586a1 1 0 0 0 .707-.293L18 10m-4-4l4 4" />
+                                    </svg>
+                                </button>
+                                <button type="button" class="btn-submit" aria-label="Delete Task">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                        <path fill="none" stroke="#111111" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7a3 3 0 0 1 3-3v0a3 3 0 0 1 3 3v0M9 7h6M9 7H6m9 0h3m2 0h-2M4 7h2m0 0v11a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7" />
+                                    </svg>
+                                </button>
                             </div>
-                        </div>
-                       <div class="task-prior">
-                            <span class="label-span">Priority</span>
-                            <div class="info-priority">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-                                    <path fill="#F59E0B" d="M12 7.5A4.5 4.5 0 0 1 7.5 12A4.5 4.5 0 0 1 3 7.5A4.5 4.5 0 0 1 7.5 3A4.5 4.5 0 0 1 12 7.5"/>
-                                </svg>
-                                <h4>Low</h4>
+                        </article>
+                    </li>
+                </ul>
+            </div>
+            <div id="panel-completed" role="tabpanel" aria-labelledby="tab-completed">
+                <ul class="todo-ul">
+                    <li class="todo-list">
+                        <article class="todo-item">
+                            <button type="button" class="task-btn btn-clean-border">
+                                <img src="assets/circle.svg" alt="Completed">
+                            </button>
+                            <div class="task-info">
+                                <h3>My Completed todo</h3>
+                                <p>Detailed todo</p>
                             </div>
-                        </div>
-                        <div class="task-action">
-                            <button type="button" class="btn-submit" aria-label="Edit Task">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                                    <path fill="none" stroke="#111111" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14 6l2.293-2.293a1 1 0 0 1 1.414 0l2.586 2.586a1 1 0 0 1 0 1.414L18 10m-4-4l-9.707 9.707a1 1 0 0 0-.293.707V19a1 1 0 0 0 1 1h2.586a1 1 0 0 0 .707-.293L18 10m-4-4l4 4" />
-                                </svg>
-                            </button>
-                            <button type="button" class="btn-submit" aria-label="Delete Task">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                                    <path fill="none" stroke="#111111" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7a3 3 0 0 1 3-3v0a3 3 0 0 1 3 3v0M9 7h6M9 7H6m9 0h3m2 0h-2M4 7h2m0 0v11a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7" />
-                                </svg>
-                            </button>
-                        </div>
-                    </article>
-                </li>
-            </ul>
-        </div>
-        <div id="panel-completed" role="tabpanel" aria-labelledby="tab-completed">
-            <ul class="todo-ul">
-                <li class="todo-list">
-                    <article class="todo-item">
-                        <button type="button" class="task-btn btn-clean-border">
-                            <img src="assets/circle.svg" alt="Completed">
-                        </button>
-                        <div class="task-info">
-                            <h3>My Completed todo</h3>
-                            <p>Detailed todo</p>
-                        </div>
-                        <div class="task-deadline">
-                            <span class="label-span">Deadline todo</span>
-                            <div class="info-deadline">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                    <path fill="#6B6B6B" d="M9 11H7v2h2zm4 0h-2v2h2zm4 0h-2v2h2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2m0 16H5V9h14z"/>
-                                </svg>
-                                <h4>May 6, 2026</h4>
+                            <div class="task-deadline">
+                                <span class="label-span">Deadline todo</span>
+                                <div class="info-deadline">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                        <path fill="#6B6B6B" d="M9 11H7v2h2zm4 0h-2v2h2zm4 0h-2v2h2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2m0 16H5V9h14z"/>
+                                    </svg>
+                                    <h4>May 6, 2026</h4>
+                                </div>
                             </div>
-                        </div>
-                       <div class="task-prior">
-                            <span class="label-span">Priority</span>
-                            <div class="info-priority">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-                                    <path fill="#27A663" d="M12 7.5A4.5 4.5 0 0 1 7.5 12A4.5 4.5 0 0 1 3 7.5A4.5 4.5 0 0 1 7.5 3A4.5 4.5 0 0 1 12 7.5"/>
-                                </svg>
-                                <h4>Low</h4>
+                        <div class="task-prior">
+                                <span class="label-span">Priority</span>
+                                <div class="info-priority">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+                                        <path fill="#27A663" d="M12 7.5A4.5 4.5 0 0 1 7.5 12A4.5 4.5 0 0 1 3 7.5A4.5 4.5 0 0 1 7.5 3A4.5 4.5 0 0 1 12 7.5"/>
+                                    </svg>
+                                    <h4>Low</h4>
+                                </div>
                             </div>
-                        </div>
-                        <div class="task-action">
-                            <button type="button" class="btn-submit" aria-label="Edit Task">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                                    <path fill="none" stroke="#111111" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14 6l2.293-2.293a1 1 0 0 1 1.414 0l2.586 2.586a1 1 0 0 1 0 1.414L18 10m-4-4l-9.707 9.707a1 1 0 0 0-.293.707V19a1 1 0 0 0 1 1h2.586a1 1 0 0 0 .707-.293L18 10m-4-4l4 4" />
-                                </svg>
-                            </button>
-                            <button type="button" class="btn-submit" aria-label="Restore Task">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                                    <path fill="#111111" d="M12 14q-.825 0-1.412-.587T10 12t.588-1.412T12 10t1.413.588T14 12t-.587 1.413T12 14m0 7q-3.475 0-6.025-2.287T3.05 13H5.1q.35 2.6 2.313 4.3T12 19q2.925 0 4.963-2.037T19 12t-2.037-4.962T12 5q-1.725 0-3.225.8T6.25 8H9v2H3V4h2v2.35q1.275-1.6 3.113-2.475T12 3q1.875 0 3.513.713t2.85 1.924t1.925 2.85T21 12t-.712 3.513t-1.925 2.85t-2.85 1.925T12 21" />
-                                </svg>
-                            </button>
-                        </div>
-                    </article>
-                </li>
-            </ul>
-        </div>
-    </main>
-    <footer>
-        <p> &copy; 2026 NyieunTudu.</p>
-    </footer>
+                            <div class="task-action">
+                                <button type="button" class="btn-submit" aria-label="Edit Task">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                        <path fill="none" stroke="#111111" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14 6l2.293-2.293a1 1 0 0 1 1.414 0l2.586 2.586a1 1 0 0 1 0 1.414L18 10m-4-4l-9.707 9.707a1 1 0 0 0-.293.707V19a1 1 0 0 0 1 1h2.586a1 1 0 0 0 .707-.293L18 10m-4-4l4 4" />
+                                    </svg>
+                                </button>
+                                <button type="button" class="btn-submit" aria-label="Restore Task">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                        <path fill="#111111" d="M12 14q-.825 0-1.412-.587T10 12t.588-1.412T12 10t1.413.588T14 12t-.587 1.413T12 14m0 7q-3.475 0-6.025-2.287T3.05 13H5.1q.35 2.6 2.313 4.3T12 19q2.925 0 4.963-2.037T19 12t-2.037-4.962T12 5q-1.725 0-3.225.8T6.25 8H9v2H3V4h2v2.35q1.275-1.6 3.113-2.475T12 3q1.875 0 3.513.713t2.85 1.924t1.925 2.85T21 12t-.712 3.513t-1.925 2.85t-2.85 1.925T12 21" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </article>
+                    </li>
+                </ul>
+            </div>
+        </main>
+        <footer>
+            <p> &copy; 2026 NyieunTudu.</p>
+        </footer>
+    </div>
 </body>
 
 </html>

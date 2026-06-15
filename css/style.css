@@ -2,6 +2,7 @@
     --font-sans: "Inter", "Helvetica Neue", Arial, sans-serif;
 
     --background: #FFFFFF; 
+    --background-blocker: #111111;
     --text: #111111;
     --muted-gray: #F1E4F1; 
     --accent-red: #E4E435; 
@@ -78,7 +79,6 @@ h1 {
 h2 {
     font-size: 36px;
 }
-
 
 header {
     background-color: var(--background);
@@ -387,251 +387,48 @@ footer {
     padding: 16px 32px;
 }
 
-/* ===========================================
-   RESPONSIVE BREAKPOINTS
-   - Laptop:  ≤1024px
-   - Tablet:  ≤768px
-   - Mobile:  ≤480px
-   =========================================== */
 
-/* --- Laptop (≤1024px) --- */
-@media (max-width: 1024px) {
-    header {
-        padding: 24px 32px;
-    }
-
-    .todo-card {
-        padding: 24px 32px;
-    }
-
-    .task-form {
-        gap: 20px;
-        padding: 20px;
-    }
-
-    .todo-item {
-        gap: 24px;
-        padding: 12px 16px;
-    }
-
-    .task-info {
-        flex: 2;
-    }
-
-    footer {
-        padding: 16px 24px;
-    }
+#media-blocker {
+    display: none;
 }
 
-/* --- Tablet (≤768px) --- */
+#app-content {
+    display: block;
+}
+
+
+/*
+Break to say the mobile version is not ready yet
+*/
 @media (max-width: 768px) {
-    h1 {
-        font-size: 28px;
+    #app-content {
+        display: none;
     }
 
-    h2 {
-        font-size: 24px;
-    }
+    #media-blocker {
+        display: block;
 
-    header {
-        padding: 16px 24px;
-    }
-
-    .todo-card {
-        padding: 16px 24px;
-    }
-
-    /* Form: collapse from 2 columns to 1 column */
-    .task-form {
-        grid-template-columns: 1fr;
-        grid-template-areas:
-            "task"
-            "deadline"
-            "priority"
-            "submit-task";
-        gap: 16px;
-        padding: 16px;
-    }
-
-    .task-input {
-        max-width: 100%;
-    }
-
-    .form-deadline input[type="date"] {
-        max-width: 100%;
-    }
-
-    .priority-options {
-        gap: 24px;
-        flex-wrap: wrap;
-    }
-
-    .submit-task {
-        width: 100%;
-        min-width: unset;
-        height: 48px;
-        min-height: 48px;
-        justify-self: stretch;
-        font-size: 14px;
-    }
-
-    /* Tab bar */
-    .tab-bar {
-        padding: 12px 24px;
-    }
-
-    /* Todo items: stack vertically */
-    .todo-item {
-        flex-wrap: wrap;
-        gap: 12px;
-        padding: 12px;
-    }
-
-    .task-info {
-        flex: 1 1 60%;
-        min-width: 0;
-    }
-
-    .task-deadline {
-        flex: 0 1 auto;
-        align-items: flex-start;
-    }
-
-    .task-prior {
-        flex: 0 1 auto;
-    }
-
-    .task-action {
-        flex: 0 0 auto;
-        justify-content: flex-start;
-    }
-
-    /* Date info */
-    .date-info {
-        padding: 16px 24px;
-    }
-
-    footer {
-        padding: 12px 24px;
-    }
-}
-
-/* --- Mobile (≤480px) --- */
-@media (max-width: 480px) {
-    h1 {
-        font-size: 22px;
-    }
-
-    h2 {
-        font-size: 20px;
-    }
-
-    header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
-        padding: 16px;
-    }
-
-    .navbar {
         display: flex;
-        gap: 16px;
-    }
-
-    .todo-card {
-        padding: 16px;
-    }
-
-    .task-form {
-        padding: 12px;
-        gap: 12px;
-        border-radius: 8px;
-    }
-
-    .priority-options {
         flex-direction: column;
-        gap: 8px;
-    }
-
-    /* Tab bar: stretch buttons to fill */
-    .tab-bar {
-        padding: 8px 16px;
-        gap: 8px;
-    }
-
-    .tab-btn {
-        flex: 1;
+        align-items: center;
+        justify-content: center;
         text-align: center;
-        padding: 8px 8px;
-        font-size: 13px;
+        position: fixed;
+        height: 100vh;
+        z-index: 9999;
+        width: 100%;
+
+        background-color: var(--background-blocker);
     }
 
-    /* Todo items: full stack */
-    .todo-item {
+    .blocker-content {
+        display: flex;
         flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-        padding: 12px;
-    }
+        gap: 36px;
 
-    .task-btn {
-        margin-top: 0;
-    }
+        color: var(--color-text-disabled);
+        border: 1px solid var(--color-border);
 
-    .task-info {
-        flex: unset;
-        width: 100%;
-    }
-
-    .task-info h3 {
-        font-size: 15px;
-    }
-
-    .task-info p {
-        font-size: 13px;
-    }
-
-    /* Deadline & Priority: side by side on mobile */
-    .task-deadline,
-    .task-prior {
-        flex: unset;
-        align-items: flex-start;
-    }
-
-    .task-action {
-        flex: unset;
-        width: 100%;
-        justify-content: flex-end;
-    }
-
-    .info-deadline {
-        gap: 6px;
-    }
-
-    .info-deadline svg {
-        width: 18px;
-        height: 18px;
-    }
-
-    .info-deadline h4 {
-        font-size: 13px;
-    }
-
-    .label-span {
-        font-size: 10px;
-    }
-
-    /* Date info */
-    .date-info {
-        padding: 12px 16px;
-    }
-
-    .todo-ul {
-        padding: 0 4px;
-    }
-
-    footer {
-        padding: 12px 16px;
-        text-align: center;
+        padding: 24px;
     }
 }
