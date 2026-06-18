@@ -289,8 +289,42 @@ main {
     gap: 32px;
     padding: 16px;
 }
-#todo-done {
+.todo-checkbox,
+.todo-checkbox input,
+.checkbox-ui {
     cursor: pointer;
+}
+.todo-checkbox input {
+    opacity: 0;
+    position: absolute;
+}
+
+.checkbox-ui {
+    width: 20px;
+    height: 20px;
+
+    border: 2px solid var(--priority-high);
+    border-radius: 4px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* transition: all 0.2 ease; */
+}
+
+.todo-checkbox:hover .checkbox-ui {
+    background-color: var(--color-icon-action);
+}
+
+.todo-checkbox input:checked ~ .checkbox-ui {
+    background-color: var(--priority-high);
+    border-color: var(--priority-high);
+}
+.todo-checkbox input:checked ~ .checkbox-ui::after {
+    content: "✓";
+    color: var(--color-background);
+    font-size: 1
 }
 
 .task-btn {
