@@ -118,7 +118,8 @@ main {
 }
 
 .tab-btn {
-    padding: 6px 14px;
+    position: relative;
+    padding: 6px;
     border: none;
     border-radius: 6px;
     background-color: transparent;
@@ -126,6 +127,32 @@ main {
     font-size: 14px;
     font-weight: 500;
     color: var(--color-text-secondary);
+}
+.tab-btn span {
+    position: relative;
+}
+
+.tab-btn span::after {
+    content: "";
+
+    position: absolute;
+    width:0;
+    height: 2px;
+
+    left: 0;
+    right: 0;
+    bottom: -6px;
+
+    background: var(--color-accent);
+    transition: width 0.3s ease;
+}
+
+.tab-btn span:hover {
+    color: var(--background-blocker);
+}
+
+.tab-btn span:hover:after {
+    width: 100%;
 }
 
 
