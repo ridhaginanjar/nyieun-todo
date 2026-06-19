@@ -225,9 +225,18 @@ main {
 
     cursor: pointer;
 }
+.form-deadline input[type="date"] {
+    position: relative;
+}
 
 .form-deadline input[type="date"]::-webkit-calendar-picker-indicator {
+    position: absolute;
     cursor: pointer;
+
+    inset: 0;
+    width: auto;
+    height: auto;
+    opacity: 0;
 }
 
 .task-priority {
