@@ -2,6 +2,23 @@ const form = document.querySelector(".task-form")
 const taskName = document.querySelector("#task-name")
 const deadline = document.querySelector("#form-deadline")
 
+function createTask(title, priority, deadline) {
+    const id = crypto.randomUUID()
+    const now = new Date().toISOString()
+    
+    const taskList = {
+        "id": id,
+        "title": title,
+        "deadline": deadline,
+        "priority": priority,
+        "completed": false,
+        "createdAt": now,
+        "updatedAt": now,
+    }
+
+    return taskList
+}
+
 form.addEventListener("submit", function(event) {
     event.preventDefault()
     
@@ -16,7 +33,6 @@ form.addEventListener("submit", function(event) {
     }
 
     console.log("Task baru berhasil dibuat!")
-    console.log(currentTaskName)
-    console.log(currentTaskDeadline)
-    console.log(TaskPriority)
+    const taskList = createTask(currentTaskName, TaskPriority, currentTaskDeadline)
+    console.log(taskList)
 })
