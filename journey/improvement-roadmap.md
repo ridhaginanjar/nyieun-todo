@@ -83,7 +83,7 @@ Learning goal: UI state, accessibility attributes, and conditional views.
 
 Learning goal: browser storage, JSON serialization, and data recovery.
 
-### 7. Improve Responsive Design
+### 7. Improve Responsive Design (NOT PRIORITY)
 
 - Remove the desktop-only media blocker.
 - Make the layout usable on mobile, tablet, and desktop.
