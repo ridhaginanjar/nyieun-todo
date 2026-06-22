@@ -23,7 +23,7 @@ form.addEventListener("submit", function(event) {
     event.preventDefault()
     
     const selectedPriority = document.querySelector('input[name="task-priority"]:checked')
-    const TaskPriority = selectedPriority ? selectedPriority.value : "sd    ";
+    const TaskPriority = selectedPriority ? selectedPriority.value : "";
 
     const currentTaskName = taskName.value.trim()
     const currentTaskDeadline = deadline.value
@@ -40,7 +40,6 @@ form.addEventListener("submit", function(event) {
     data.push(taskList)
 
     localStorage.setItem("task", JSON.stringify(data))
-    console.log(data)
 
     readTask()
 })
@@ -69,6 +68,24 @@ function readTask() {
             currentColorPriority = colorLowPriority;
         }
 
+        let deadlineHTML = "";
+
+        if (deadline) {
+            deadlineHTML = 
+            `
+
+                                    <div class="task-deadline">
+                                        <span class="label-span">Deadline todo</span>
+                                        <div class="info-deadline">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                                <path fill="#6B6B6B" d="M9 11H7v2h2zm4 0h-2v2h2zm4 0h-2v2h2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2m0 16H5V9h14z"/>
+                                            </svg>
+                                            <h4>${deadline}</h4>
+                                        </div>
+                                    </div>
+            `
+        }
+
         const taskHTML = `
                                 <li class="todo-list">
                                 <article class="todo-item">
@@ -79,15 +96,7 @@ function readTask() {
                                     <div class="task-info">
                                         <h3>${title}</h3>
                                     </div>
-                                    <div class="task-deadline">
-                                        <span class="label-span">Deadline todo</span>
-                                        <div class="info-deadline">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                                <path fill="#6B6B6B" d="M9 11H7v2h2zm4 0h-2v2h2zm4 0h-2v2h2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2m0 16H5V9h14z"/>
-                                            </svg>
-                                            <h4>${deadline}</h4>
-                                        </div>
-                                    </div>
+                                    ${deadlineHTML}
                                     <div class="task-prior">
                                         <span class="label-span">Priority</span>
                                         <div class="info-priority">
