@@ -1,4 +1,4 @@
-readTask()
+renderTask()
 
 const form = document.querySelector(".task-form")
 const taskName = document.querySelector("#task-name")
@@ -21,6 +21,14 @@ function createTask(title, priority, deadline) {
     return taskList
 }
 
+function readTask() {
+    return JSON.parse(localStorage.getItem("task")) || [];
+}
+
+function saveTask(tasks) {
+    return localStorage.setItem("task", JSON.stringify(tasks))
+}
+
 form.addEventListener("submit", function(event) {
     event.preventDefault()
     
@@ -38,24 +46,24 @@ form.addEventListener("submit", function(event) {
     const taskList = createTask(currentTaskName, TaskPriority, currentTaskDeadline)
     console.log(taskList)
 
-    const data = JSON.parse(localStorage.getItem("task")) || [];
-    data.push(taskList)
+    const taskData = readTask();
+    taskData.push(taskList)
 
-    localStorage.setItem("task", JSON.stringify(data))
-    readTask()
+    saveTask(taskData)
+    renderTask()
 })
 
-function readTask() {
+function renderTask() {
     const taskList = document.querySelector(".todo-ul")
     taskList.innerHTML = ""
 
-    const taskStorage = JSON.parse(localStorage.getItem("task")) || [];
+    const taskData = readTask();
 
     const colorHighPriority = "#d6453d"
     const colorMedPriority = "#F59E0B"
     const colorLowPriority = "#27A663"
 
-    taskStorage.forEach(e => {
+    taskData.forEach(e => {
         const title = e.title
         const priority = e.priority
         const deadline = e.deadline
