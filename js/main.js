@@ -1,3 +1,5 @@
+readTask()
+
 const form = document.querySelector(".task-form")
 const taskName = document.querySelector("#task-name")
 const deadline = document.querySelector("#form-deadline")
@@ -40,7 +42,6 @@ form.addEventListener("submit", function(event) {
     data.push(taskList)
 
     localStorage.setItem("task", JSON.stringify(data))
-
     readTask()
 })
 
@@ -50,9 +51,9 @@ function readTask() {
 
     const taskStorage = JSON.parse(localStorage.getItem("task")) || [];
 
-    const colorLowPriority = "#d6453d"
+    const colorHighPriority = "#d6453d"
     const colorMedPriority = "#F59E0B"
-    const colorHighPriority = "#27A663"
+    const colorLowPriority = "#27A663"
 
     taskStorage.forEach(e => {
         const title = e.title
@@ -87,7 +88,7 @@ function readTask() {
         }
 
         let priorityHTML = '';
-        
+
         if (priority) {
             priorityHTML = 
             `
@@ -134,6 +135,3 @@ function readTask() {
         taskList.insertAdjacentHTML('beforeend', taskHTML)
     })
 }
-
-// function to show data, this one is temporary
-readTask()
