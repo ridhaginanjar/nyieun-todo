@@ -378,6 +378,10 @@ main {
 
     /* transition: all 0.2 ease; */
 }
+.todo-item.is-completed .task-info h3 {
+    color: var(--color-text-muted);
+    text-decoration: line-through;
+}
 
 .todo-checkbox:hover .checkbox-ui {
     background-color: var(--color-icon-action);

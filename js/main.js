@@ -129,7 +129,7 @@ function renderTask() {
             }
 
             const taskHTML = `
-                                    <li class="todo-list">
+                                <li class="todo-list">
                                     <article class="todo-item">
                                         <label class="todo-checkbox">
                                             <input type="checkbox" name="task-completed">
@@ -184,4 +184,12 @@ form.addEventListener("submit", function(event) {
     saveTask(taskData)
     renderTask()
     form.reset()
+})
+
+const checkbox = document.querySelector(".todo-checkbox input[type='checkbox']")
+const taskItem = document.querySelector(".todo-item")
+
+checkbox.addEventListener("change", function (event) {
+    console.log("hey")
+    taskItem.classList.toggle("is-completed", checkbox.checked)
 })
