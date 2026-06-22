@@ -186,10 +186,14 @@ form.addEventListener("submit", function(event) {
     form.reset()
 })
 
-const checkbox = document.querySelector(".todo-checkbox input[type='checkbox']")
-const taskItem = document.querySelector(".todo-item")
+const allTodoCheckbox = document.querySelectorAll(".todo-checkbox input[type='checkbox']")
 
-checkbox.addEventListener("change", function (event) {
-    console.log("hey")
-    taskItem.classList.toggle("is-completed", checkbox.checked)
+allTodoCheckbox.forEach( checkbox => {
+
+    checkbox.addEventListener("change", function (event) { // Di momen ini setiap input checkbox berubah (event) maka ngetrigger body di bawah.
+        const taskItem = checkbox.closest(".todo-item") // .closest mencari ke atas. Artinya dari input checkbox cari parent yang classnya .todo-item
+        // Artinya dengan kode di atas, saat input berubah ambil .todo-item yang merupakan html parent dari si checbox.
+        taskItem.classList.toggle("is-completed", checkbox.checked) //.toggle menghapus is-completed ketika false. Menambah ketika true
+        // Nah checkbox.checked itu akan true kalau kita centang todonya.
+    })
 })
