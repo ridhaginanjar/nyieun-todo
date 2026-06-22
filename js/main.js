@@ -51,6 +51,7 @@ form.addEventListener("submit", function(event) {
 
     saveTask(taskData)
     renderTask()
+    form.reset()
 })
 
 function renderTask() {
