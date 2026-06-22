@@ -78,7 +78,6 @@ function readTask() {
                                     </label>
                                     <div class="task-info">
                                         <h3>${title}</h3>
-                                        <p>Detailed todo</p>
                                     </div>
                                     <div class="task-deadline">
                                         <span class="label-span">Deadline todo</span>

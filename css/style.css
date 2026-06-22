@@ -384,11 +384,11 @@ main {
 }
 
 .task-info {
-    flex: 3;
+    flex: 2;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 4px;
+    gap: 2px;
 }
 
 .task-info h3 {
@@ -398,10 +398,10 @@ main {
     /* Jarak antara judul dan deskripsi */
 }
 
-.task-info p {
+/* .task-info p {
     line-height: 1;
     font-size: 14px;
-}
+} */
 
 .task-deadline {
     flex: 1;
