@@ -311,6 +311,28 @@ main {
 #panel-completed {
     background-color: var(--background);
 }
+.emptyTask {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 20vh;
+    max-width: 960px;
+    gap: 32px;
+    margin-inline: auto;
+}
+
+.emptyTaskText {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.emptyTask p {
+    color: var(--color-icon-secondary);
+}
 
 .todo-list {
     list-style: none;
