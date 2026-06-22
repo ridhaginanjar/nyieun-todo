@@ -86,6 +86,23 @@ function readTask() {
             `
         }
 
+        let priorityHTML = '';
+        
+        if (priority) {
+            priorityHTML = 
+            `
+                                    <div class="task-prior">
+                                        <span class="label-span">Priority</span>
+                                        <div class="info-priority">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+                                                <path fill="${currentColorPriority}" d="M12 7.5A4.5 4.5 0 0 1 7.5 12A4.5 4.5 0 0 1 3 7.5A4.5 4.5 0 0 1 7.5 3A4.5 4.5 0 0 1 12 7.5"/>
+                                            </svg>
+                                            <h4>${priority}</h4>
+                                        </div>
+                                    </div>
+            `
+        }
+
         const taskHTML = `
                                 <li class="todo-list">
                                 <article class="todo-item">
@@ -97,15 +114,7 @@ function readTask() {
                                         <h3>${title}</h3>
                                     </div>
                                     ${deadlineHTML}
-                                    <div class="task-prior">
-                                        <span class="label-span">Priority</span>
-                                        <div class="info-priority">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-                                                <path fill="${currentColorPriority}" d="M12 7.5A4.5 4.5 0 0 1 7.5 12A4.5 4.5 0 0 1 3 7.5A4.5 4.5 0 0 1 7.5 3A4.5 4.5 0 0 1 12 7.5"/>
-                                            </svg>
-                                            <h4>${priority}</h4>
-                                        </div>
-                                    </div>
+                                    ${priorityHTML}
                                     <div class="task-action">
                                         <button type="button" class="btn-submit" aria-label="Edit Task">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
