@@ -207,21 +207,24 @@ function updateTask(id, updatedAt, isChecked) {
     return newTaskData
 }
 
-const allTodoCheckbox = document.querySelectorAll(".todo-checkbox input[type='checkbox']")
-allTodoCheckbox.forEach(checkbox => {
-    const taskItem = checkbox.closest(".todo-item") // .closest mencari ke atas. Artinya dari input checkbox cari parent yang classnya .todo-item
-    // Artinya dengan kode di atas, saat input berubah ambil .todo-item yang merupakan html parent dari si checbox.
+const todoUL = document.querySelector(".todo-ul")
 
-    checkbox.addEventListener("change", function (event) { // Di momen ini setiap input checkbox berubah (event) maka ngetrigger body di bawah.
-        let isChecked = checkbox.checked;
-        taskItem.classList.toggle("is-completed", isChecked) //.toggle menghapus is-completed ketika false. Menambah ketika true
-        // Nah checkbox.checked itu akan true kalau kita centang todonya.
+todoUL.addEventListener("change", (event) => {
+    if (!event.target.matches(".todo-checkbox input[type='checkbox']")) {
+        // Kalau event.target bukan todo-checkbox input maka return kosong
+        return
+    }
 
-        const currentTaskID = taskItem.closest(".todo-list").dataset.id;
-        const updatedAt = new Date().toISOString();
+    let inputTask = event.target;
+    let todoItem = inputTask.closest(".todo-item");
+    let isChecked = event.target.checked
 
-        let newTaskData = updateTask(currentTaskID, updatedAt, isChecked)
-        saveTask(newTaskData);
+    todoItem.classList.toggle("is-completed", isChecked);
 
-    })
+    // Update Data
+    const currentTaskID = todoItem.closest(".todo-list");
+    const updatedAt = new Date().toISOString();
+
+    let newTaskData = updateTask(currentTaskID, updateTask, isChecked);
+    saveTask(newTaskData)
 })
