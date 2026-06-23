@@ -80,6 +80,7 @@ function renderTask() {
     } else  {    
         taskList.innerHTML = "";
         taskData.forEach(e => {
+            const taskId = e.id
             const title = e.title
             const priority = e.priority
             const deadline = e.deadline
@@ -129,7 +130,7 @@ function renderTask() {
             }
 
             const taskHTML = `
-                                <li class="todo-list">
+                                <li class="todo-list" data-id="${taskId}">
                                     <article class="todo-item">
                                         <label class="todo-checkbox">
                                             <input type="checkbox" name="task-completed">
