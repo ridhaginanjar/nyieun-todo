@@ -191,7 +191,6 @@ function updateTask(id, updatedAt, isChecked) {
     let taskData = readTask();
 
     const newTaskData= taskData.map((val, idx) => {
-        console.log(`ke-${idx}` + val.id)
         if (id == val.id) {
             taskData = {
                 ...val,
@@ -201,6 +200,8 @@ function updateTask(id, updatedAt, isChecked) {
 
             return taskData
         }
+
+        return val
     })
 
     return newTaskData
