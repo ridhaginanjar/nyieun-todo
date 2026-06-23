@@ -187,14 +187,40 @@ form.addEventListener("submit", function(event) {
     form.reset()
 })
 
-const allTodoCheckbox = document.querySelectorAll(".todo-checkbox input[type='checkbox']")
+function updateTask(id, updatedAt, isChecked) {
+    let taskData = readTask();
 
-allTodoCheckbox.forEach( checkbox => {
+    const newTaskData= taskData.map((val, idx) => {
+        console.log(`ke-${idx}` + val.id)
+        if (id == val.id) {
+            taskData = {
+                ...val,
+                completed: isChecked,
+                updatedAt: updatedAt
+            }
+
+            return taskData
+        }
+    })
+
+    return newTaskData
+}
+
+const allTodoCheckbox = document.querySelectorAll(".todo-checkbox input[type='checkbox']")
+allTodoCheckbox.forEach(checkbox => {
+    const taskItem = checkbox.closest(".todo-item") // .closest mencari ke atas. Artinya dari input checkbox cari parent yang classnya .todo-item
+    // Artinya dengan kode di atas, saat input berubah ambil .todo-item yang merupakan html parent dari si checbox.
 
     checkbox.addEventListener("change", function (event) { // Di momen ini setiap input checkbox berubah (event) maka ngetrigger body di bawah.
-        const taskItem = checkbox.closest(".todo-item") // .closest mencari ke atas. Artinya dari input checkbox cari parent yang classnya .todo-item
-        // Artinya dengan kode di atas, saat input berubah ambil .todo-item yang merupakan html parent dari si checbox.
-        taskItem.classList.toggle("is-completed", checkbox.checked) //.toggle menghapus is-completed ketika false. Menambah ketika true
+        let isChecked = checkbox.checked;
+        taskItem.classList.toggle("is-completed", isChecked) //.toggle menghapus is-completed ketika false. Menambah ketika true
         // Nah checkbox.checked itu akan true kalau kita centang todonya.
+
+        const currentTaskID = taskItem.closest(".todo-list").dataset.id;
+        const updatedAt = new Date().toISOString();
+
+        let newTaskData = updateTask(currentTaskID, updatedAt, isChecked)
+        saveTask(newTaskData);
+
     })
 })
