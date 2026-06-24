@@ -219,7 +219,7 @@ todoUL.addEventListener("change", (event) => {
     todoItem.classList.toggle("is-completed", isChecked);
 
     // Update Data
-    const currentTaskID = todoItem.closest(".todo-list");
+    const currentTaskID = todoItem.closest(".todo-list").dataset.id;
     const updatedAt = new Date().toISOString();
 
     let newTaskData = updateTask(currentTaskID, updateTask, isChecked);
@@ -236,7 +236,7 @@ todoUL.addEventListener("click", (event) => {
     if (!buttonDelete) {
         return
     }
-    
+
     const isDelete = buttonDelete.matches(".task-action button[aria-label='Delete Task']")
 
     const currentTaskId = event.target.closest(".todo-list").dataset.id
