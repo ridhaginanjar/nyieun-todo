@@ -168,6 +168,7 @@ form.addEventListener("submit", function(event) {
 
     const currentTaskName = taskName.value.trim()
     const currentTaskDeadline = deadline.value
+
     if (currentTaskName === "") {
         console.log("Tidak ada task yang dikirim");
         return
@@ -222,7 +223,7 @@ todoUL.addEventListener("change", (event) => {
     const currentTaskID = todoItem.closest(".todo-list").dataset.id;
     const updatedAt = new Date().toISOString();
 
-    let newTaskData = updateTask(currentTaskID, updateTask, isChecked);
+    let newTaskData = updateTask(currentTaskID, updatedAt, isChecked);
     saveTask(newTaskData)
 })
 
