@@ -41,8 +41,6 @@ function renderTask() {
 
     let noTaskHTML = ""
 
-    console.log(taskData.length)
-
     if (taskData.length === 0) {
         noTaskHTML = 
             `
@@ -177,7 +175,6 @@ form.addEventListener("submit", function(event) {
 
     console.log("Task baru berhasil dibuat!")
     const taskList = createTask(currentTaskName, TaskPriority, currentTaskDeadline)
-    console.log(taskList)
 
     const taskData = readTask();
     taskData.push(taskList)
@@ -227,4 +224,23 @@ todoUL.addEventListener("change", (event) => {
 
     let newTaskData = updateTask(currentTaskID, updateTask, isChecked);
     saveTask(newTaskData)
+})
+
+function deleteTask(id) {
+    localStorage.removeItem(id);
+}
+
+todoUL.addEventListener("click", (event) => {
+    const buttonDelete = event.target.closest(".task-action button[aria-label='Delete Task']")
+    const isDelete = buttonDelete.matches(".task-action button[aria-label='Delete Task']")
+
+    const currentTaskId = event.target.closest(".todo-list").dataset.id
+
+    let data = readTask();
+
+    if (isDelete) {
+        const newData = data.filter(x => x.id != currentTaskId)
+        saveTask(newData)
+        renderTask()
+    }
 })
