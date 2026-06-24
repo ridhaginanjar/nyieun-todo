@@ -232,6 +232,11 @@ function deleteTask(id) {
 
 todoUL.addEventListener("click", (event) => {
     const buttonDelete = event.target.closest(".task-action button[aria-label='Delete Task']")
+
+    if (!buttonDelete) {
+        return
+    }
+    
     const isDelete = buttonDelete.matches(".task-action button[aria-label='Delete Task']")
 
     const currentTaskId = event.target.closest(".todo-list").dataset.id
