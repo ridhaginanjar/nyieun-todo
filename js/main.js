@@ -1,5 +1,5 @@
 allData = readTask();
-renderTask(allData)
+renderAllTask(allData)
 
 const form = document.querySelector(".task-form")
 const taskName = document.querySelector("#task-name")
@@ -30,7 +30,7 @@ function saveTask(tasks) {
     return localStorage.setItem("task", JSON.stringify(tasks))
 }
 
-function renderTask(taskData) {
+function renderAllTask(taskData) {
     const taskList = document.querySelector(".todo-ul")
     taskList.innerHTML = ""
 
@@ -81,6 +81,8 @@ function renderTask(taskData) {
             const title = e.title
             const priority = e.priority
             const deadline = e.deadline
+            const isCompleted = e.completed
+
             let currentColorPriority = ""
 
             if (priority === "High") {
@@ -128,7 +130,7 @@ function renderTask(taskData) {
 
             const taskHTML = `
                                 <li class="todo-list" data-id="${taskId}">
-                                    <article class="todo-item">
+                                    <article class="todo-item ${isCompleted}">
                                         <label class="todo-checkbox">
                                             <input type="checkbox" name="task-completed">
                                             <span class="checkbox-ui"></span>
@@ -225,10 +227,6 @@ todoUL.addEventListener("change", (event) => {
     saveTask(newTaskData)
 })
 
-function deleteTask(id) {
-    localStorage.removeItem(id);
-}
-
 todoUL.addEventListener("click", (event) => {
     const buttonDelete = event.target.closest(".task-action button[aria-label='Delete Task']")
 
@@ -279,18 +277,14 @@ tabBar.addEventListener("click", (e) => {
     if (buttonValue == 'pending') {
         tabButton.setAttribute("aria-selected", "true")
         pendingData = taskData.filter(x => x.completed == false)
-        console.log(pendingData)
-
         renderTask(pendingData)
     }
 
     if (buttonValue == 'completed') {
         tabButton.setAttribute("aria-selected", "true")
         //renderCompleted
-        pendingData = taskData.filter(x => x.completed == true)
-        console.log(pendingData)
-
-        renderTask(pendingData)
+        completedData = taskData.filter(x => x.completed == true)
+        renderTask(completedData)
     }
 
     if (buttonValue == 'all') {
