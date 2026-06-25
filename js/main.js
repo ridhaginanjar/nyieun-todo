@@ -1,5 +1,5 @@
 allData = readTask();
-renderAllTask(allData)
+renderTask(allData)
 
 const form = document.querySelector(".task-form")
 const taskName = document.querySelector("#task-name")
@@ -30,7 +30,7 @@ function saveTask(tasks) {
     return localStorage.setItem("task", JSON.stringify(tasks))
 }
 
-function renderAllTask(taskData) {
+function renderTask(taskData) {
     const taskList = document.querySelector(".todo-ul")
     taskList.innerHTML = ""
 
@@ -81,7 +81,7 @@ function renderAllTask(taskData) {
             const title = e.title
             const priority = e.priority
             const deadline = e.deadline
-            const isCompleted = e.completed
+            const isCompleted = e.completed ? "is-completed" : [];
 
             let currentColorPriority = ""
 
