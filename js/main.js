@@ -1,4 +1,5 @@
-renderTask()
+allData = readTask();
+renderTask(allData)
 
 const form = document.querySelector(".task-form")
 const taskName = document.querySelector("#task-name")
@@ -29,11 +30,9 @@ function saveTask(tasks) {
     return localStorage.setItem("task", JSON.stringify(tasks))
 }
 
-function renderTask() {
+function renderTask(taskData) {
     const taskList = document.querySelector(".todo-ul")
     taskList.innerHTML = ""
-
-    const taskData = readTask();
 
     const colorHighPriority = "#d6453d"
     const colorMedPriority = "#F59E0B"
@@ -181,7 +180,7 @@ form.addEventListener("submit", function(event) {
     taskData.push(taskList)
 
     saveTask(taskData)
-    renderTask()
+    renderTask(taskData)
     form.reset()
 })
 
@@ -209,7 +208,6 @@ const todoUL = document.querySelector(".todo-ul")
 
 todoUL.addEventListener("change", (event) => {
     if (!event.target.matches(".todo-checkbox input[type='checkbox']")) {
-        // Kalau event.target bukan todo-checkbox input maka return kosong
         return
     }
 
@@ -247,6 +245,58 @@ todoUL.addEventListener("click", (event) => {
     if (isDelete) {
         const newData = data.filter(x => x.id != currentTaskId)
         saveTask(newData)
-        renderTask()
+        renderTask(newDataData)
+    }
+})
+
+// Ganti aria-selected darit true false (sebaliknya)
+function changeSelectedTab(currentTab, newTab) {
+    return
+}
+// show kalau all semuanya, pending cuman completed false, completed yang true.
+
+const tabBar = document.querySelector(".tab-bar");
+
+tabBar.addEventListener("click", (e) => {
+    if (!e.target.matches("span")) {
+        return
+    }
+    // Set all aria-selected = false
+    let allButton = tabBar.querySelectorAll(".tab-bar button[type='button']")
+    
+    allButton.forEach((val,idx) => {
+        val.setAttribute("aria-selected", false)
+    })
+
+    // Update aria-selected = true 
+    // CTA show relevance todo
+    let tabButton = e.target.closest(".tab-bar button[type='button']")
+    let selectedButton = tabButton.getAttribute("aria-selected")
+    let buttonValue = tabButton.value
+
+    let taskData = readTask();
+    
+    if (buttonValue == 'pending') {
+        tabButton.setAttribute("aria-selected", "true")
+        pendingData = taskData.filter(x => x.completed == false)
+        console.log(pendingData)
+
+        renderTask(pendingData)
+    }
+
+    if (buttonValue == 'completed') {
+        tabButton.setAttribute("aria-selected", "true")
+        //renderCompleted
+        pendingData = taskData.filter(x => x.completed == true)
+        console.log(pendingData)
+
+        renderTask(pendingData)
+    }
+
+    if (buttonValue == 'all') {
+        tabButton.setAttribute("aria-selected", "true")
+        
+        allData = readTask();
+        renderTask(allData)
     }
 })
