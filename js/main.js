@@ -30,7 +30,7 @@ function saveTask(tasks) {
     return localStorage.setItem("task", JSON.stringify(tasks))
 }
 
-function renderTask(taskData) {
+function renderTask(taskData, activeTab = 'all') {
     const taskList = document.querySelector(".todo-ul")
     taskList.innerHTML = ""
 
@@ -41,9 +41,22 @@ function renderTask(taskData) {
     let noTaskHTML = ""
 
     if (taskData.length === 0) {
+        let teksNothingTodoHTML = ""
+
+        if (activeTab === 'completed') {
+            teksNothingTodoHTML = `
+                <h2>No Completed Tasks</h2>
+                <p>Keep your hard work~</p>
+            `
+        } else {
+            teksNothingTodoHTML = `
+                <h2>Your todo list is empty</h2>
+                <p>Let's get started! Add your first task and stay on track.</p>
+            `
+        }
         noTaskHTML = 
             `
-                    <div class="emptyTask">
+                <div class="emptyTask">
                     <svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
                     <title id="title">Todo checklist empty state icon</title>
                     <desc id="desc">A coral checklist clipboard icon with a checkmark inside a soft pink circular background.</desc>
@@ -67,13 +80,11 @@ function renderTask(taskData) {
                     <path d="M57.8 62.2L61 65.4L67 58.8" stroke="#EF4B36" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                     <div class="emptyTaskText">
-                        <h2>Your todo list is empty</h2>
-                        <p>Let's get started! Add your first task and stay on track.</p>
+                        ${teksNothingTodoHTML}
                     </div>
                 </div>
             `
         taskList.insertAdjacentHTML('beforeend', noTaskHTML)
-    
     } else  {    
         taskList.innerHTML = "";
         taskData.forEach(e => {
@@ -221,7 +232,6 @@ todoUL.addEventListener("change", (event) => {
 
     todoItem.classList.toggle("is-completed", isChecked);
 
-    // Update Data
     const currentTaskID = todoItem.closest(".todo-list").dataset.id;
     const updatedAt = new Date().toISOString();
 
@@ -245,15 +255,13 @@ todoUL.addEventListener("click", (event) => {
     if (isDelete) {
         const newData = data.filter(x => x.id != currentTaskId)
         saveTask(newData)
-        renderTask(newDataData)
+        renderTask(newData)
     }
 })
 
-// Ganti aria-selected darit true false (sebaliknya)
 function changeSelectedTab(currentTab, newTab) {
     return
 }
-// show kalau all semuanya, pending cuman completed false, completed yang true.
 
 const tabBar = document.querySelector(".tab-bar");
 
@@ -261,15 +269,13 @@ tabBar.addEventListener("click", (e) => {
     if (!e.target.matches("span")) {
         return
     }
-    // Set all aria-selected = false
+
     let allButton = tabBar.querySelectorAll(".tab-bar button[type='button']")
     
     allButton.forEach((val,idx) => {
         val.setAttribute("aria-selected", false)
     })
 
-    // Update aria-selected = true 
-    // CTA show relevance todo
     let tabButton = e.target.closest(".tab-bar button[type='button']")
     let selectedButton = tabButton.getAttribute("aria-selected")
     let buttonValue = tabButton.value
@@ -279,20 +285,24 @@ tabBar.addEventListener("click", (e) => {
     if (buttonValue == 'pending') {
         tabButton.setAttribute("aria-selected", "true")
         pendingData = taskData.filter(x => x.completed == false)
+
         renderTask(pendingData)
     }
 
     if (buttonValue == 'completed') {
         tabButton.setAttribute("aria-selected", "true")
-        //renderCompleted
         completedData = taskData.filter(x => x.completed == true)
-        renderTask(completedData)
+
+        let activeTab = buttonValue
+        renderTask(completedData, activeTab)
     }
 
     if (buttonValue == 'all') {
         tabButton.setAttribute("aria-selected", "true")
         
         allData = readTask();
+
+        let activeTab = buttonValue
         renderTask(allData)
     }
 })
