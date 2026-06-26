@@ -34,7 +34,7 @@ function createTask(title, priority, deadline) {
     const id = crypto.randomUUID()
     const now = new Date().toISOString()
     
-    const taskList = {
+    const newTaskData = {
         "id": id,
         "title": title,
         "deadline": deadline,
@@ -44,7 +44,7 @@ function createTask(title, priority, deadline) {
         "updatedAt": now,
     }
 
-    return taskList
+    return newTaskData
 }
 
 
@@ -68,7 +68,7 @@ function updateTask(id, updatedAt, isChecked) {
     return newTaskData
 }
 
-function renderTask(taskData, activeTab = 'all') {
+function renderTask(taskData, activeTab) {
     const taskList = document.querySelector(".todo-ul")
     taskList.innerHTML = ""
 
@@ -225,9 +225,39 @@ form.addEventListener("submit", function(event) {
     }
 
     console.log("Task baru berhasil dibuat!")
-    const taskList = createTask(currentTaskName, TaskPriority, currentTaskDeadline)
+    const newTaskData = createTask(currentTaskName, TaskPriority, currentTaskDeadline)
 
-    renderTask(taskData)
+    let taskList = readTask()
+
+    taskList.push(newTaskData)
+    saveTask(taskList)
+
+    // Show Data berdasarkan Tab Active
+    let activeTabs = tabBar.querySelectorAll(".tab-bar button[type='button']")
+    
+    let activeTab = ""
+
+    activeTabs.forEach((val, idx) => {
+        if (val.getAttribute("aria-selected") == "true") {
+            activeTab = val.value
+        }
+    })
+
+    if (activeTab === 'completed') {
+        // Get completedData
+        taskData = readTask();
+        
+        taskData = readTask();
+        let completedData = taskData.filter(x => x.completed == true)
+        renderTask(completedData, activeTab)
+    }
+
+    if (activeTab === 'pending') {
+        //Get uncompletedData
+        taskData = readTask();
+        let unCompletedData = taskData.filter(x => x.completed != true)
+        renderTask(unCompletedData, activeTab)
+    }
     form.reset()
 })
 
@@ -293,8 +323,34 @@ todoUL.addEventListener("click", (event) => {
     const currentTaskId = event.target.closest(".todo-list").dataset.id;
 
     if (isDelete) {
-        const newData = data.filter(x => x.id != currentTaskId)
-        saveTask(newData)
+        let data = readTask();
+
+        let taskData = data.filter(x => x.id != currentTaskId)
+        saveTask(taskData)
+
+        // Tahap 3: Update Render Data based on situation
+        let activeTabs = tabBar.querySelectorAll(".tab-bar button[type='button']")
+        
+        let activeTab = ""
+
+        activeTabs.forEach((val, idx) => {
+            if (val.getAttribute("aria-selected") == "true") {
+                activeTab = val.value
+            }
+        })
+
+        if (activeTab === 'completed') {
+            // Get completedData
+            let completedData = taskData.filter(x => x.completed == true)
+            renderTask(completedData, activeTab)
+        }
+
+        if (activeTab === 'pending') {
+            //Get uncompletedData
+            taskData = readTask();
+            let unCompletedData = taskData.filter(x => x.completed != true)
+            renderTask(unCompletedData, activeTab)
+        }
     }
 })
 
