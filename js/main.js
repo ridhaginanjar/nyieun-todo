@@ -23,6 +23,13 @@ function getCompletedData(taskData) {
 
 renderTask(unCompletedData)
 
+const delay = (ms) => new Promise((resolver, reject) => {
+    console.log("Delay berhasil dijalankan")
+    setTimeout(() => {
+        resolver("DONE BOSKUU~");
+    }, ms)
+}) 
+
 function createTask(title, priority, deadline) {
     const id = crypto.randomUUID()
     const now = new Date().toISOString()
@@ -224,7 +231,7 @@ form.addEventListener("submit", function(event) {
     form.reset()
 })
 
-todoUL.addEventListener("change", (event) => {
+todoUL.addEventListener("change", async (event) => {
     if (!event.target.matches(".todo-checkbox input[type='checkbox']")) {
         return
     }
@@ -233,18 +240,20 @@ todoUL.addEventListener("change", (event) => {
     let todoItem = inputTask.closest(".todo-item");
     let isChecked = event.target.checked
 
+    // Tahap 1: Menambahkan is-completed agar animasi dicoret.
     todoItem.classList.toggle("is-completed", isChecked);
 
     const currentTaskID = todoItem.closest(".todo-list").dataset.id;
     const updatedAt = new Date().toISOString();
 
+    // Tahap 2: Update Task Data
     let newTaskData = updateTask(currentTaskID, updatedAt, isChecked);
     saveTask(newTaskData)
 
-    // BAGIAN INI BENERIN DEH. PENGEN DICOBA UNTUK KALO DICHECKLIST LANGSUNG PINDAH TAB SI TODONYA>
-    // BETTER NANTI TAMBAHIN ANIMASI
+    // Tahap 2.5: Delay
+    await delay(500);
 
-
+    // Tahap 3: Update Render Data based on situation
     let activeTabs = tabBar.querySelectorAll(".tab-bar button[type='button']")
     
     let activeTab = ""
