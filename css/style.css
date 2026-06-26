@@ -377,9 +377,33 @@ main {
 
     /* transition: all 0.2 ease; */
 }
+
+.todo-item .task-info h3 {
+    position: relative;
+}
+
 .todo-item.is-completed .task-info h3 {
     color: var(--color-text-muted);
-    text-decoration: line-through;
+}
+
+.todo-item .task-info h3::after {
+    content: "";
+    position: absolute;
+
+    width: 0;
+    height: 2px;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 12px;
+
+    background-color: var(--color-text-muted);
+    transition: width 0.3s ease;
+}
+
+.todo-item.is-completed .task-info h3::after {
+    width: 100%;
 }
 
 .todo-checkbox:hover .checkbox-ui {
