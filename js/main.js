@@ -7,15 +7,21 @@ const todoUL = document.querySelector(".todo-ul")
 const tabBar = document.querySelector(".tab-bar");
 
 let taskData = readTask()
-let uncompleteData = getFilteredTask(taskData)
+let unCompletedData = getUncompletedData(taskData)
 
-function getFilteredTask(taskData) {
+function getUncompletedData(taskData) {
     let filteredData = taskData.filter(task => task.completed != true)
 
     return filteredData
 }
 
-renderTask(uncompleteData)
+function getCompletedData(taskData) {
+    let filteredData = taskData.filter(task => task.completed == true)
+
+    return filteredData
+}
+
+renderTask(unCompletedData)
 
 function createTask(title, priority, deadline) {
     const id = crypto.randomUUID()
@@ -235,6 +241,35 @@ todoUL.addEventListener("change", (event) => {
     let newTaskData = updateTask(currentTaskID, updatedAt, isChecked);
     saveTask(newTaskData)
 
+    // BAGIAN INI BENERIN DEH. PENGEN DICOBA UNTUK KALO DICHECKLIST LANGSUNG PINDAH TAB SI TODONYA>
+    // BETTER NANTI TAMBAHIN ANIMASI
+
+
+    let activeTabs = tabBar.querySelectorAll(".tab-bar button[type='button']")
+    
+    let activeTab = ""
+
+    activeTabs.forEach((val, idx) => {
+        if (val.getAttribute("aria-selected") == "true") {
+            activeTab = val.value
+        }
+    })
+
+    if (activeTab === 'completed') {
+        // Get completedData
+        taskData = readTask();
+        
+        taskData = readTask();
+        let completedData = taskData.filter(x => x.completed == true)
+        renderTask(completedData, activeTab)
+    }
+
+    if (activeTab === 'pending') {
+        //Get uncompletedData
+        taskData = readTask();
+        let unCompletedData = taskData.filter(x => x.completed != true)
+        renderTask(unCompletedData, activeTab)
+    }
 })
 
 todoUL.addEventListener("click", (event) => {
@@ -279,13 +314,13 @@ tabBar.addEventListener("click", (e) => {
         renderTask(completedData, activeTab)
     }
 
-    if (buttonValue == 'all') {
+    if (buttonValue == 'pending') {
         tabButton.setAttribute("aria-selected", "true")
         
         let activeTab = buttonValue
 
         taskData = readTask();
-        uncompleteData = taskData.filter(x => x.completed != true)
-        renderTask(uncompleteData, activeTab)
+        let unCompletedData = taskData.filter(x => x.completed != true)
+        renderTask(unCompletedData, activeTab)
     }
 })
