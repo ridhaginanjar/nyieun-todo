@@ -115,9 +115,6 @@ function renderTask(taskData, activeTab = 'all') {
                                         <div class="task-deadline">
                                             <span class="label-span">Deadline todo</span>
                                             <div class="info-deadline">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                                    <path fill="#6B6B6B" d="M9 11H7v2h2zm4 0h-2v2h2zm4 0h-2v2h2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2m0 16H5V9h14z"/>
-                                                </svg>
                                                 <h4>${deadline}</h4>
                                             </div>
                                         </div>
@@ -142,31 +139,33 @@ function renderTask(taskData, activeTab = 'all') {
             }
 
             const taskHTML = `
-                                <li class="todo-list" data-id="${taskId}">
-                                    <article class="todo-item ${isCompleted}">
-                                        <label class="todo-checkbox">
-                                            <input type="checkbox" name="task-completed" ${checked}>
-                                            <span class="checkbox-ui"></span>
-                                        </label>
-                                        <div class="task-info">
-                                            <h3>${title}</h3>
-                                        </div>
-                                        ${deadlineHTML}
-                                        ${priorityHTML}
-                                        <div class="task-action">
-                                            <button type="button" class="btn-submit" aria-label="Edit Task">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                                                    <path fill="none" stroke="#111111" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14 6l2.293-2.293a1 1 0 0 1 1.414 0l2.586 2.586a1 1 0 0 1 0 1.414L18 10m-4-4l-9.707 9.707a1 1 0 0 0-.293.707V19a1 1 0 0 0 1 1h2.586a1 1 0 0 0 .707-.293L18 10m-4-4l4 4" />
-                                                </svg>
-                                            </button>
-                                            <button type="button" class="btn-submit" aria-label="Delete Task">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                                                    <path fill="none" stroke="#111111" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7a3 3 0 0 1 3-3v0a3 3 0 0 1 3 3v0M9 7h6M9 7H6m9 0h3m2 0h-2M4 7h2m0 0v11a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7" />
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </article>
-                                </li>
+                    <li class="todo-list" data-id="${taskId}">
+                        <article class="todo-item ${isCompleted}">
+                            <label class="todo-checkbox">
+                                <input type="checkbox" name="task-completed" ${checked}>
+                                <span class="checkbox-ui"></span>
+                            </label>
+                            <div class="task-info">
+                                <h3>${title}</h3>
+                                <div class="task-meta">
+                                    ${deadlineHTML}
+                                    ${priorityHTML}
+                                </div>
+                            </div>
+                            <div class="task-action">
+                                <button type="button" class="btn-submit" aria-label="Edit Task">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                        <path fill="none" stroke="#111111" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14 6l2.293-2.293a1 1 0 0 1 1.414 0l2.586 2.586a1 1 0 0 1 0 1.414L18 10m-4-4l-9.707 9.707a1 1 0 0 0-.293.707V19a1 1 0 0 0 1 1h2.586a1 1 0 0 0 .707-.293L18 10m-4-4l4 4" />
+                                    </svg>
+                                </button>
+                                <button type="button" class="btn-submit" aria-label="Delete Task">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                        <path fill="none" stroke="#111111" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7a3 3 0 0 1 3-3v0a3 3 0 0 1 3 3v0M9 7h6M9 7H6m9 0h3m2 0h-2M4 7h2m0 0v11a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </article>
+                    </li>
                 `
 
             taskList.insertAdjacentHTML('beforeend', taskHTML)

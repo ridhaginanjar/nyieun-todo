@@ -349,15 +349,19 @@ main {
 }
 
 .todo-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display: grid;
+    grid-template: "checkbox task action";
+    grid-template-columns: 24px 1fr 36px;
     gap: 32px;
     padding: 16px;
 }
+
 .todo-checkbox,
 .todo-checkbox input,
 .checkbox-ui {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
 }
 .todo-checkbox input {
@@ -418,43 +422,46 @@ main {
 }
 
 .task-info {
-    flex: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 2px;
+    display: grid;
+    grid-template: "task-name task-meta";
+    grid-template-columns: 2fr 1fr;
+    align-items: center;
+    gap: 24px;
 }
 
 .task-info h3 {
+    grid-area: "task-name";
+    font-size: 1;
     line-height: 1.2;
-    /* Menjaga teks tetap rapat dan terkontrol */
     margin-bottom: 2px;
-    /* Jarak antara judul dan deskripsi */
 }
 
-/* .task-info p {
-    line-height: 1;
-    font-size: 14px;
-} */
+.task-meta {
+    grid-area: "task-meta";
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 36px;
+}
 
 .task-deadline {
-    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     align-items: flex-end;
+    gap: 8px;
 }
 
 .task-prior {
-    flex: 0;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
+    justify-content: flex-end;
+    align-items: flex-end;
+    gap: 6px;
 }
 
 .task-action {
-    flex: 1;
     display: flex;
     flex-direction: row;
     justify-content: center;
