@@ -310,17 +310,10 @@ main {
     gap: 6px;
 }
 
-#panel-all {
+#panel {
     background-color: var(--background);
 }
 
-#panel-active {
-    background-color: var(--background);
-}
-
-#panel-completed {
-    background-color: var(--background);
-}
 .emptyTask {
     display: flex;
     flex-direction: row;

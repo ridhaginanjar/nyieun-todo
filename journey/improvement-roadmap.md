@@ -59,7 +59,7 @@ Learning goal: DOM creation, template functions, conditional rendering, and UI s
 
 - Complete or uncomplete a task using the checkbox.
 - Delete a task.
-- Edit a task title, deadline, and priority.
+- Edit a task title, deadline, and priority. (NOT PRIORITY)
 - Confirm before deleting if you want safer behavior.
 
 Learning goal: event delegation, updating state, and keeping UI synchronized with data.

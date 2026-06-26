@@ -78,17 +78,14 @@
                 </form>
             </div>
             <div class="tab-bar" role="tablist" aria-label="todo-filter">
-                <button type="button" class="tab-btn btn-clean-border" aria-selected="true" aria-controls="panel-all" role="tab" value="all">
-                    <span>All</span>
-                </button>
-                <button type="button" class="tab-btn btn-clean-border" aria-selected="false" aria-controls="panel-active" role="tab" value="pending">
-                    <span>Pending</span>
+                <button type="button" class="tab-btn btn-clean-border" aria-selected="true" aria-controls="panel-active" role="tab" value="all">
+                    <span>Your Missions</span>
                 </button>
                 <button type="button" class="tab-btn btn-clean-border" aria-selected="false" aria-controls="panel-completed" role="tab" value="completed">
-                    <span>Completed</span>
+                    <span>Completed Missions</span>
                 </button>
             </div>
-            <div id="panel-all" role="tabpanel" aria-labelledby="tab-all">
+            <div id="panel" role="tabpanel" aria-labelledby="tab-all">
                 <ul class="todo-ul">
                 </ul>
             </div>
@@ -98,5 +95,5 @@
         </footer>
     </div>
 </body>
-<script src="./js/main.js"></script>
+<script type="module" src="./js/main.js"></script>
 </html>

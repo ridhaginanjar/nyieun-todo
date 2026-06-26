@@ -1,9 +1,21 @@
-allData = readTask();
-renderTask(allData)
+import { readTask, saveTask } from "./utils.js";
 
 const form = document.querySelector(".task-form")
 const taskName = document.querySelector("#task-name")
 const deadline = document.querySelector("#form-deadline")
+const todoUL = document.querySelector(".todo-ul")
+const tabBar = document.querySelector(".tab-bar");
+
+let taskData = readTask()
+let uncompleteData = getFilteredTask(taskData)
+
+function getFilteredTask(taskData) {
+    let filteredData = taskData.filter(task => task.completed != true)
+
+    return filteredData
+}
+
+renderTask(uncompleteData)
 
 function createTask(title, priority, deadline) {
     const id = crypto.randomUUID()
@@ -22,12 +34,25 @@ function createTask(title, priority, deadline) {
     return taskList
 }
 
-function readTask() {
-    return JSON.parse(localStorage.getItem("task")) || [];
-}
 
-function saveTask(tasks) {
-    return localStorage.setItem("task", JSON.stringify(tasks))
+function updateTask(id, updatedAt, isChecked) {
+    let taskData = readTask();
+
+    const newTaskData= taskData.map((val, idx) => {
+        if (id == val.id) {
+            taskData = {
+                ...val,
+                completed: isChecked,
+                updatedAt: updatedAt
+            }
+
+            return taskData
+        }
+
+        return val
+    })
+
+    return newTaskData
 }
 
 function renderTask(taskData, activeTab = 'all') {
@@ -94,7 +119,6 @@ function renderTask(taskData, activeTab = 'all') {
             const deadline = e.deadline
             const isCompleted = e.completed ? "is-completed" : [];
             const checked = e.completed ? "checked" : [];
-            console.log(checked)
 
             let currentColorPriority = ""
 
@@ -190,35 +214,9 @@ form.addEventListener("submit", function(event) {
     console.log("Task baru berhasil dibuat!")
     const taskList = createTask(currentTaskName, TaskPriority, currentTaskDeadline)
 
-    const taskData = readTask();
-    taskData.push(taskList)
-
-    saveTask(taskData)
     renderTask(taskData)
     form.reset()
 })
-
-function updateTask(id, updatedAt, isChecked) {
-    let taskData = readTask();
-
-    const newTaskData= taskData.map((val, idx) => {
-        if (id == val.id) {
-            taskData = {
-                ...val,
-                completed: isChecked,
-                updatedAt: updatedAt
-            }
-
-            return taskData
-        }
-
-        return val
-    })
-
-    return newTaskData
-}
-
-const todoUL = document.querySelector(".todo-ul")
 
 todoUL.addEventListener("change", (event) => {
     if (!event.target.matches(".todo-checkbox input[type='checkbox']")) {
@@ -236,6 +234,7 @@ todoUL.addEventListener("change", (event) => {
 
     let newTaskData = updateTask(currentTaskID, updatedAt, isChecked);
     saveTask(newTaskData)
+
 })
 
 todoUL.addEventListener("click", (event) => {
@@ -247,22 +246,13 @@ todoUL.addEventListener("click", (event) => {
 
     const isDelete = buttonDelete.matches(".task-action button[aria-label='Delete Task']")
 
-    const currentTaskId = event.target.closest(".todo-list").dataset.id
-
-    let data = readTask();
+    const currentTaskId = event.target.closest(".todo-list").dataset.id;
 
     if (isDelete) {
         const newData = data.filter(x => x.id != currentTaskId)
         saveTask(newData)
-        renderTask(newData)
     }
 })
-
-function changeSelectedTab(currentTab, newTab) {
-    return
-}
-
-const tabBar = document.querySelector(".tab-bar");
 
 tabBar.addEventListener("click", (e) => {
     if (!e.target.matches("span")) {
@@ -278,19 +268,12 @@ tabBar.addEventListener("click", (e) => {
     let tabButton = e.target.closest(".tab-bar button[type='button']")
     let selectedButton = tabButton.getAttribute("aria-selected")
     let buttonValue = tabButton.value
-
-    let taskData = readTask();
     
-    if (buttonValue == 'pending') {
-        tabButton.setAttribute("aria-selected", "true")
-        pendingData = taskData.filter(x => x.completed == false)
-
-        renderTask(pendingData)
-    }
-
     if (buttonValue == 'completed') {
         tabButton.setAttribute("aria-selected", "true")
-        completedData = taskData.filter(x => x.completed == true)
+
+        taskData = readTask();
+        let completedData = taskData.filter(x => x.completed == true)
 
         let activeTab = buttonValue
         renderTask(completedData, activeTab)
@@ -299,9 +282,10 @@ tabBar.addEventListener("click", (e) => {
     if (buttonValue == 'all') {
         tabButton.setAttribute("aria-selected", "true")
         
-        allData = readTask();
-
         let activeTab = buttonValue
-        renderTask(allData)
+
+        taskData = readTask();
+        uncompleteData = taskData.filter(x => x.completed != true)
+        renderTask(uncompleteData, activeTab)
     }
 })
