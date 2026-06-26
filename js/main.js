@@ -82,6 +82,8 @@ function renderTask(taskData) {
             const priority = e.priority
             const deadline = e.deadline
             const isCompleted = e.completed ? "is-completed" : [];
+            const checked = e.completed ? "checked" : [];
+            console.log(checked)
 
             let currentColorPriority = ""
 
@@ -132,7 +134,7 @@ function renderTask(taskData) {
                                 <li class="todo-list" data-id="${taskId}">
                                     <article class="todo-item ${isCompleted}">
                                         <label class="todo-checkbox">
-                                            <input type="checkbox" name="task-completed">
+                                            <input type="checkbox" name="task-completed" ${checked}>
                                             <span class="checkbox-ui"></span>
                                         </label>
                                         <div class="task-info">
