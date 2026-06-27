@@ -301,30 +301,15 @@ tabBar.addEventListener("click", (e) => {
 
     // Reset all tab to false first
     let allButton = tabBar.querySelectorAll(".tab-bar button[type='button']")
-    let currentActiveTab = ''
-    let currentTabButton = e.target.closest("button")
 
     allButton.forEach((val,idx) => {
-
-        if (val.getAttribute("aria-selected") == 'true') {
-            currentActiveTab = val.value
-        }
-
         val.setAttribute("aria-selected", false)
     })
     
     // then render again
-    if (currentActiveTab == 'completed') {
-        currentTabButton.setAttribute("aria-selected", "true")
+    let currentActiveTab = e.target.closest("button")
+    currentActiveTab.setAttribute("aria-selected", "true")
 
-        taskData = readTask();
-        renderCurrentView(tabBar, taskData)
-    }
-
-    if (currentActiveTab == 'pending') {
-        currentTabButton.setAttribute("aria-selected", "true")
-
-        taskData = readTask();
-        renderCurrentView(tabBar, taskData)
-    }
+    taskData = readTask();
+    renderCurrentView(tabBar, taskData)
 })
