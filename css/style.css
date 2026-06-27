@@ -151,7 +151,7 @@ main {
     color: var(--background-blocker);
 }
 
-.tab-btn span:hover:after {
+.tab-btn span:hover::after {
     width: 100%;
 }
 
@@ -159,7 +159,7 @@ main {
     color: var(--background-blocker);
 }
 
-.tab-btn[aria-selected="true"] span:after{
+.tab-btn[aria-selected="true"] span::after{
     width: 100%;
 }
 

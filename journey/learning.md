@@ -290,3 +290,344 @@ Jangan mengganti `taskData` menjadi satu object saja, karena `renderTask()` memb
 
   Setelah itu, kirim ulang isi main.js atau bagian fungsi tab + render. Saya bisa bantu review apakah pemisahan tanggung jawabnya sudah lebih rapi sebelum Anda lanjut bikin logic khusus
   untuk all, pending, dan completed.
+# Learning Notes: State, Filter, Render, dan Animasi Completed Task
+
+## Momen Belajar
+
+Saat task dicentang sebagai completed, ekspektasinya bukan hanya data berubah, tapi UI juga langsung terasa berubah:
+
+- checkbox aktif,
+- teks task berubah abu-abu,
+- garis coret berjalan,
+- setelah delay singkat task hilang dari tab pending,
+- task muncul di tab completed.
+
+Masalah ini mengajarkan bahwa di frontend ada beberapa lapisan yang perlu dipisahkan:
+
+1. Data state task.
+2. Filter tab yang sedang aktif.
+3. Render ulang UI.
+4. Animasi visual sementara.
+
+## Mental Model
+
+Jangan berpikir bahwa task harus "dipindahkan" secara manual dari satu tab ke tab lain.
+
+Lebih tepat berpikir seperti ini:
+
+```txt
+user centang checkbox
+-> update data task.completed
+-> simpan data terbaru
+-> beri class visual untuk animasi
+-> tunggu sebentar
+-> baca ulang data terbaru
+-> filter berdasarkan tab aktif
+-> render ulang
+```
+
+Tab `pending` dan `completed` sebaiknya dianggap sebagai view hasil filter, bukan tempat penyimpanan data yang berbeda.
+
+Contoh:
+
+```js
+const pendingTasks = tasks.filter(task => !task.completed);
+const completedTasks = tasks.filter(task => task.completed);
+```
+
+Sumber kebenaran tetap satu: semua task di storage.
+
+## Hal Penting: Snapshot Data Bisa Basi
+
+Variabel seperti ini hanya membaca data sekali saat halaman pertama dibuka:
+
+```js
+let taskData = readTask();
+let unCompletedData = getUncompletedData(taskData);
+```
+
+Setelah checkbox mengubah data dan `saveTask()` dipanggil, variabel lama belum tentu ikut berubah.
+
+Karena itu, setelah perubahan penting, lebih aman membaca ulang data terbaru:
+
+```js
+const latestTaskData = readTask();
+```
+
+Lalu filter dari data terbaru tersebut.
+
+## Async/Await untuk Delay Animasi
+
+`await` tidak bisa langsung menunggu `setTimeout`, karena `setTimeout` bukan Promise.
+
+Pola delay yang benar:
+
+```js
+const delay = (ms) => new Promise((resolve) => {
+    setTimeout(resolve, ms);
+});
+```
+
+Lalu di event handler:
+
+```js
+todoItem.classList.toggle("is-completed", isChecked);
+
+saveTask(newTaskData);
+
+await delay(500);
+
+renderCurrentView();
+```
+
+Urutannya penting:
+
+1. Update tampilan kecil dulu dengan class `is-completed`.
+2. Simpan data agar state benar.
+3. Tunggu animasi.
+4. Render ulang view aktif.
+
+Kalau `renderCurrentView()` dipanggil terlalu cepat, elemen bisa hilang sebelum animasi coret terlihat.
+
+## Pseudo-element untuk Line-through Custom
+
+`::after` bukan teks asli. Ia adalah elemen visual tambahan yang dibuat CSS.
+
+Contoh:
+
+```css
+.todo-item .task-info h3::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-text-muted);
+    transition: width 0.3s ease;
+}
+
+.todo-item.is-completed .task-info h3::after {
+    width: 100%;
+}
+```
+
+Rule pertama membuat garis visual dengan lebar awal `0`.
+
+Rule kedua membuat garis menjadi `100%` saat `.todo-item` punya class `.is-completed`.
+
+Untuk mengubah warna teks asli, target-nya bukan `::after`, tapi `h3` langsung:
+
+```css
+.todo-item.is-completed .task-info h3 {
+    color: var(--color-text-muted);
+}
+```
+
+Mental model:
+
+```txt
+h3        -> teks asli
+h3::after -> elemen visual tambahan untuk garis coret
+```
+
+## Pseudo-element vs Pseudo-class
+
+Pseudo-element dan pseudo-class sama-sama ditulis di selector CSS, tapi fungsinya berbeda.
+
+### Pseudo-element
+
+Pseudo-element dipakai untuk memilih atau membuat bagian visual tertentu dari sebuah elemen.
+
+Contoh:
+
+```css
+h3::after {
+    content: "";
+}
+```
+
+Artinya:
+
+> Buat elemen visual tambahan setelah isi `h3`.
+
+Secara mental, browser seperti membuat:
+
+```html
+<h3>
+  Belajar JavaScript
+  <span class="after"></span>
+</h3>
+```
+
+Tapi `<span>` itu tidak benar-benar ada di HTML. Ia hanya dibuat secara visual oleh CSS.
+
+Contoh pseudo-element:
+
+```css
+::before
+::after
+::first-letter
+::first-line
+::selection
+```
+
+Pseudo-element biasanya memakai dua titik dua:
+
+```css
+::after
+```
+
+Dua titik dua dipakai untuk membedakan pseudo-element dari pseudo-class.
+
+### Pseudo-class
+
+Pseudo-class dipakai untuk memilih elemen berdasarkan state, kondisi, atau posisi tertentu.
+
+Contoh:
+
+```css
+button:hover {
+    background-color: red;
+}
+```
+
+Artinya:
+
+> Pilih `button` saat sedang di-hover.
+
+Tidak ada elemen baru yang dibuat. CSS hanya menerapkan style ketika kondisi `hover` terjadi.
+
+Contoh pseudo-class:
+
+```css
+:hover
+:focus
+:active
+:checked
+:first-child
+:last-child
+:nth-child()
+:not()
+```
+
+Pseudo-class memakai satu titik dua:
+
+```css
+:hover
+```
+
+### Perbedaan Utama
+
+```txt
+Pseudo-element:
+membuat atau memilih bagian visual dari elemen.
+Contoh: ::before, ::after.
+
+Pseudo-class:
+memilih elemen berdasarkan kondisi/state.
+Contoh: :hover, :checked, :focus.
+```
+
+Contoh dalam todo app:
+
+```css
+.todo-checkbox input:checked ~ .checkbox-ui {
+    background-color: var(--priority-high);
+}
+```
+
+`input:checked` adalah pseudo-class, karena memilih input saat kondisinya sedang checked.
+
+Sedangkan:
+
+```css
+.todo-item .task-info h3::after {
+    content: "";
+}
+```
+
+`h3::after` adalah pseudo-element, karena membuat elemen visual tambahan setelah isi `h3`.
+
+## Selector Penting
+
+Selector ini:
+
+```css
+.todo-item.is-completed
+```
+
+artinya satu elemen punya dua class sekaligus:
+
+```html
+<article class="todo-item is-completed">
+```
+
+Sedangkan ini:
+
+```css
+.todo-item .is-completed
+```
+
+artinya cari elemen `.is-completed` di dalam `.todo-item`.
+
+Untuk kasus completed task, yang dibutuhkan adalah:
+
+```css
+.todo-item.is-completed .task-info h3
+```
+
+Karena class `is-completed` dipasang pada elemen yang sama dengan `todo-item`.
+
+## Arah Refactor Berikutnya
+
+Saat ini logic untuk membaca tab aktif, filter data, dan render mulai muncul di beberapa tempat.
+
+Agar lebih rapi, buat satu pintu render:
+
+```js
+function getActiveTab() {
+    const activeButton = tabBar.querySelector(".tab-bar button[aria-selected='true']");
+    return activeButton.value;
+}
+
+function getFilteredTasks(tasks, activeTab) {
+    if (activeTab === "completed") {
+        return tasks.filter(task => task.completed);
+    }
+
+    return tasks.filter(task => !task.completed);
+}
+
+function renderCurrentView() {
+    const latestTaskData = readTask();
+    const activeTab = getActiveTab();
+    const visibleTasks = getFilteredTasks(latestTaskData, activeTab);
+
+    renderTask(visibleTasks, activeTab);
+}
+```
+
+Dengan begitu, submit, checkbox, delete, dan tab click cukup memanggil:
+
+```js
+renderCurrentView();
+```
+
+Ini membuat flow lebih mudah dipahami:
+
+```txt
+ubah data -> saveTask() -> renderCurrentView()
+```
+
+## Pelajaran Utama
+
+Frontend interaktif tidak cukup hanya "mengubah data" atau hanya "mengubah DOM".
+
+Yang perlu dijaga adalah alur:
+
+```txt
+state benar
+-> visual feedback terlihat
+-> render ulang dari state terbaru
+```
+
+Kalau alur ini konsisten, fitur seperti tab pending/completed, checkbox, delete, dan animasi akan lebih mudah dikembangkan tanpa saling merusak.
