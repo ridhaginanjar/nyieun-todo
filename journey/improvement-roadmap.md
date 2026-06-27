@@ -15,7 +15,7 @@ This roadmap is written for your current state: a static todo app built with `in
 
 Focus: make the current static page behave like an actual app in the browser.
 
-### 1. Connect The Form To JavaScript
+### 1. Connect The Form To JavaScript (DONE)
 
 - Capture form submission with `addEventListener`.
 - Read task name, deadline, and priority from the form.
@@ -25,7 +25,7 @@ Focus: make the current static page behave like an actual app in the browser.
 
 Learning goal: DOM events, form handling, validation, and browser default behavior.
 
-### 2. Create A Task Data Model
+### 2. Create A Task Data Model  (DONE)
 
 - Represent every task as an object:
 
@@ -46,7 +46,7 @@ Learning goal: DOM events, form handling, validation, and browser default behavi
 
 Learning goal: state, arrays, objects, rendering, and separating data from UI.
 
-### 3. Render Tasks Dynamically
+### 3. Render Tasks Dynamically (DONE)
 
 - Replace hardcoded task list items with JavaScript-generated elements.
 - Show an empty state when there are no tasks.
@@ -55,7 +55,7 @@ Learning goal: state, arrays, objects, rendering, and separating data from UI.
 
 Learning goal: DOM creation, template functions, conditional rendering, and UI states.
 
-### 4. Implement Todo Actions
+### 4. Implement Todo Actions (DONE)
 
 - Complete or uncomplete a task using the checkbox.
 - Delete a task.
@@ -64,7 +64,7 @@ Learning goal: DOM creation, template functions, conditional rendering, and UI s
 
 Learning goal: event delegation, updating state, and keeping UI synchronized with data.
 
-### 5. Fix Filtering Tabs
+### 5. Fix Filtering Tabs (DONE)
 
 - Make tabs actually filter tasks:
   - All
@@ -75,7 +75,7 @@ Learning goal: event delegation, updating state, and keeping UI synchronized wit
 
 Learning goal: UI state, accessibility attributes, and conditional views.
 
-### 6. Add Local Storage Persistence
+### 6. Add Local Storage Persistence (DONE)
 
 - Save tasks to `localStorage` after create, edit, complete, and delete.
 - Load tasks from `localStorage` when the page opens.
@@ -93,7 +93,7 @@ Learning goal: browser storage, JSON serialization, and data recovery.
 
 Learning goal: responsive CSS, media queries, flexible layouts, and mobile-first thinking.
 
-### 8. Improve Accessibility
+### 8. Improve Accessibility (NOT PRIORITY)
 
 - Add real `href` values or use buttons for navigation-like controls.
 - Ensure every interactive element has a clear label.
@@ -104,7 +104,7 @@ Learning goal: responsive CSS, media queries, flexible layouts, and mobile-first
 
 Learning goal: semantic HTML, keyboard navigation, ARIA basics, and inclusive UI.
 
-### 9. Add Dark Theme Properly
+### 9. Add Dark Theme Properly (NOT PRIORITY)
 
 - Use CSS custom properties for light and dark colors.
 - Add a theme toggle button.
@@ -113,7 +113,7 @@ Learning goal: semantic HTML, keyboard navigation, ARIA basics, and inclusive UI
 
 Learning goal: design tokens, CSS variables, user preferences, and progressive enhancement.
 
-## Phase 2: Frontend Code Quality
+## Phase 2: Frontend Code Quality (WIP for 2nd Version)
 
 Focus: make the frontend easier to maintain as it grows.
 
