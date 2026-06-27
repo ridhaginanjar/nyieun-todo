@@ -6,22 +6,34 @@ const deadline = document.querySelector("#form-deadline")
 const todoUL = document.querySelector(".todo-ul")
 const tabBar = document.querySelector(".tab-bar");
 
-let taskData = readTask()
-let unCompletedData = getUncompletedData(taskData)
+let taskData = readTask();
 
-function getUncompletedData(taskData) {
-    let filteredData = taskData.filter(task => task.completed != true)
 
-    return filteredData
+// Read at the first Load
+renderCurrentView(tabBar, taskData)
+
+function getFilteredTask(taskData, activeTab) {
+    let filteredTask = [];
+
+    if (activeTab === 'pending') {
+        return filteredTask = taskData.filter(task => task.completed != true) 
+    }
+    
+    return filteredTask = taskData.filter(task => task.completed == true)
 }
 
-function getCompletedData(taskData) {
-    let filteredData = taskData.filter(task => task.completed == true)
+function getActiveTabs(tabBar) {
+    let activeTab = tabBar.querySelector(".tab-bar button[aria-selected='true']")
 
-    return filteredData
+    return activeTab.value
 }
 
-renderTask(unCompletedData)
+function renderCurrentView(tabBar, taskData) {
+    let tab = getActiveTabs(tabBar)
+    let filteredData = getFilteredTask(taskData, tab)
+
+    renderTask(filteredData, tab)
+}
 
 const delay = (ms) => new Promise((resolver, reject) => {
     console.log("Delay berhasil dijalankan")
@@ -228,31 +240,9 @@ form.addEventListener("submit", function(event) {
     saveTask(taskList)
 
     // Show Data berdasarkan Tab Active
-    let activeTabs = tabBar.querySelectorAll(".tab-bar button[type='button']")
-    
-    let activeTab = ""
+    renderCurrentView(tabBar, taskList)
 
-    activeTabs.forEach((val, idx) => {
-        if (val.getAttribute("aria-selected") == "true") {
-            activeTab = val.value
-        }
-    })
-
-    if (activeTab === 'completed') {
-        // Get completedData
-        taskData = readTask();
-        
-        taskData = readTask();
-        let completedData = taskData.filter(x => x.completed == true)
-        renderTask(completedData, activeTab)
-    }
-
-    if (activeTab === 'pending') {
-        //Get uncompletedData
-        taskData = readTask();
-        let unCompletedData = taskData.filter(x => x.completed != true)
-        renderTask(unCompletedData, activeTab)
-    }
+    // Reset Form
     form.reset()
 })
 
@@ -279,31 +269,7 @@ todoUL.addEventListener("change", async (event) => {
     await delay(500);
 
     // Tahap 3: Update Render Data based on situation
-    let activeTabs = tabBar.querySelectorAll(".tab-bar button[type='button']")
-    
-    let activeTab = ""
-
-    activeTabs.forEach((val, idx) => {
-        if (val.getAttribute("aria-selected") == "true") {
-            activeTab = val.value
-        }
-    })
-
-    if (activeTab === 'completed') {
-        // Get completedData
-        taskData = readTask();
-        
-        taskData = readTask();
-        let completedData = taskData.filter(x => x.completed == true)
-        renderTask(completedData, activeTab)
-    }
-
-    if (activeTab === 'pending') {
-        //Get uncompletedData
-        taskData = readTask();
-        let unCompletedData = taskData.filter(x => x.completed != true)
-        renderTask(unCompletedData, activeTab)
-    }
+    renderCurrentView(tabBar, newTaskData)
 })
 
 todoUL.addEventListener("click", (event) => {
@@ -324,28 +290,7 @@ todoUL.addEventListener("click", (event) => {
         saveTask(taskData)
 
         // Tahap 3: Update Render Data based on situation
-        let activeTabs = tabBar.querySelectorAll(".tab-bar button[type='button']")
-        
-        let activeTab = ""
-
-        activeTabs.forEach((val, idx) => {
-            if (val.getAttribute("aria-selected") == "true") {
-                activeTab = val.value
-            }
-        })
-
-        if (activeTab === 'completed') {
-            // Get completedData
-            let completedData = taskData.filter(x => x.completed == true)
-            renderTask(completedData, activeTab)
-        }
-
-        if (activeTab === 'pending') {
-            //Get uncompletedData
-            taskData = readTask();
-            let unCompletedData = taskData.filter(x => x.completed != true)
-            renderTask(unCompletedData, activeTab)
-        }
+        renderCurrentView(tabBar, taskData);
     }
 })
 
@@ -354,33 +299,32 @@ tabBar.addEventListener("click", (e) => {
         return
     }
 
+    // Reset all tab to false first
     let allButton = tabBar.querySelectorAll(".tab-bar button[type='button']")
-    
+    let currentActiveTab = ''
+    let currentTabButton = e.target.closest("button")
+
     allButton.forEach((val,idx) => {
+
+        if (val.getAttribute("aria-selected") == 'true') {
+            currentActiveTab = val.value
+        }
+
         val.setAttribute("aria-selected", false)
     })
-
-    let tabButton = e.target.closest(".tab-bar button[type='button']")
-    let selectedButton = tabButton.getAttribute("aria-selected")
-    let buttonValue = tabButton.value
     
-    if (buttonValue == 'completed') {
-        tabButton.setAttribute("aria-selected", "true")
+    // then render again
+    if (currentActiveTab == 'completed') {
+        currentTabButton.setAttribute("aria-selected", "true")
 
         taskData = readTask();
-        let completedData = taskData.filter(x => x.completed == true)
-
-        let activeTab = buttonValue
-        renderTask(completedData, activeTab)
+        renderCurrentView(tabBar, taskData)
     }
 
-    if (buttonValue == 'pending') {
-        tabButton.setAttribute("aria-selected", "true")
-        
-        let activeTab = buttonValue
+    if (currentActiveTab == 'pending') {
+        currentTabButton.setAttribute("aria-selected", "true")
 
         taskData = readTask();
-        let unCompletedData = taskData.filter(x => x.completed != true)
-        renderTask(unCompletedData, activeTab)
+        renderCurrentView(tabBar, taskData)
     }
 })
