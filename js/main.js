@@ -22,15 +22,16 @@ function getFilteredTask(taskData, activeTab) {
     return filteredTask = taskData.filter(task => task.completed == true)
 }
 
-function getActiveTabs(tabBar) {
+function getActiveTabs() {
     let activeTab = tabBar.querySelector(".tab-bar button[aria-selected='true']")
 
     return activeTab.value
 }
 
-function renderCurrentView(tabBar, taskData) {
-    let tab = getActiveTabs(tabBar)
-    let filteredData = getFilteredTask(taskData, tab)
+function renderCurrentView() {
+    let data = readTask();
+    let tab = getActiveTabs()
+    let filteredData = getFilteredTask(data, tab)
 
     renderTask(filteredData, tab)
 }
@@ -240,7 +241,7 @@ form.addEventListener("submit", function(event) {
     saveTask(taskList)
 
     // Show Data berdasarkan Tab Active
-    renderCurrentView(tabBar, taskList)
+    renderCurrentView()
 
     // Reset Form
     form.reset()
@@ -269,7 +270,7 @@ todoUL.addEventListener("change", async (event) => {
     await delay(500);
 
     // Tahap 3: Update Render Data based on situation
-    renderCurrentView(tabBar, newTaskData)
+    renderCurrentView()
 })
 
 todoUL.addEventListener("click", (event) => {
@@ -288,10 +289,10 @@ todoUL.addEventListener("click", (event) => {
 
         let taskData = data.filter(x => x.id != currentTaskId)
         saveTask(taskData)
-
-        // Tahap 3: Update Render Data based on situation
-        renderCurrentView(tabBar, taskData);
     }
+
+    // Tahap 3: Update Render Data based on situation
+    renderCurrentView();
 })
 
 tabBar.addEventListener("click", (e) => {
@@ -311,5 +312,5 @@ tabBar.addEventListener("click", (e) => {
     currentActiveTab.setAttribute("aria-selected", "true")
 
     taskData = readTask();
-    renderCurrentView(tabBar, taskData)
+    renderCurrentView()
 })
