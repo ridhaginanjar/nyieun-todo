@@ -185,7 +185,7 @@ Learning goal: confidence, regression prevention, and testable code design.
 
 Focus: move from simple static files toward a professional frontend workflow.
 
-### 15. Add Git Discipline
+### 15. Add Git Discipline (DONE)
 
 - Use small commits with clear messages.
 - Create branches for features.
@@ -194,7 +194,7 @@ Focus: move from simple static files toward a professional frontend workflow.
 
 Learning goal: version control habits used in real teams.
 
-### 16. Add A Build Tool
+### 16. Add A Build Tool (DONE)
 
 When the static app starts feeling hard to organize, try Vite.
 
