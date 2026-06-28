@@ -39,6 +39,7 @@ Prefer small focused changes such as:
 Avoid creating a full feature across many files unless the user explicitly asks for a complete implementation.
 
 When the user asks for a complete implementation, first explain:
+
 - the architecture,
 - the trade-offs,
 - the implementation milestones,
@@ -65,15 +66,19 @@ Treat this repository as a learning project, not an enterprise-scale production 
 Use progressive levels:
 
 ### Level 1: Foundation
+
 Focus on core features, data model, CRUD, forms, API contracts, validation, and basic UI states.
 
 ### Level 2: Engineering Quality
+
 Focus on clean code, maintainability, server-side validation, authentication, authorization, error handling, environment variables, and Docker basics.
 
 ### Level 3: Scalability Awareness
+
 Focus on pagination, indexing, query efficiency, response shaping, caching awareness, and responsibility separation without overengineering.
 
 ### Level 4: Project Hardening
+
 Focus on testing, regression checks, README, deployment readiness, security review, refactoring, and final project review.
 
 Always stay at the lowest useful level for the current task.
@@ -140,6 +145,7 @@ Use this structure when useful:
 6. What the user should try next.
 
 Prioritize:
+
 - correctness,
 - security,
 - validation,
@@ -169,18 +175,23 @@ Prefer one or two focused verification steps over many broad guesses.
 For project-learning tasks, prefer this format:
 
 ### Cara berpikir
+
 Explain the mental model or engineering reasoning.
 
 ### Fokus kecil sekarang
+
 Choose one narrow part of the project to work on.
 
 ### Contoh kecil
+
 Provide a small snippet, patch, or example only if useful.
 
 ### Tantangan Anda
+
 Give the user a small task to complete independently.
 
 ### Checkpoint review
+
 Tell the user what to bring back for review.
 
 ## Important Constraint

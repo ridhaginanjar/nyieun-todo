@@ -1,112 +1,110 @@
-import { readTask, saveTask } from "./utils.js";
+import { readTask, saveTask } from './utils.js';
 
-const form = document.querySelector(".task-form")
-const taskName = document.querySelector("#task-name")
-const deadline = document.querySelector("#form-deadline")
-const todoUL = document.querySelector(".todo-ul")
-const tabBar = document.querySelector(".tab-bar");
+const form = document.querySelector('.task-form');
+const taskName = document.querySelector('#task-name');
+const deadline = document.querySelector('#form-deadline');
+const todoUL = document.querySelector('.todo-ul');
+const tabBar = document.querySelector('.tab-bar');
 
 let taskData = readTask();
 
-
 // Read at the first Load
-renderCurrentView(tabBar, taskData)
+renderCurrentView(tabBar, taskData);
 
 function getFilteredTask(taskData, activeTab) {
-    let filteredTask = [];
+  let filteredTask = [];
 
-    if (activeTab === 'pending') {
-        return filteredTask = taskData.filter(task => task.completed != true) 
-    }
-    
-    return filteredTask = taskData.filter(task => task.completed == true)
+  if (activeTab === 'pending') {
+    return (filteredTask = taskData.filter((task) => task.completed != true));
+  }
+
+  return (filteredTask = taskData.filter((task) => task.completed == true));
 }
 
 function getActiveTabs() {
-    let activeTab = tabBar.querySelector(".tab-bar button[aria-selected='true']")
+  let activeTab = tabBar.querySelector(".tab-bar button[aria-selected='true']");
 
-    return activeTab.value
+  return activeTab.value;
 }
 
 function renderCurrentView() {
-    let data = readTask();
-    let tab = getActiveTabs()
-    let filteredData = getFilteredTask(data, tab)
+  let data = readTask();
+  let tab = getActiveTabs();
+  let filteredData = getFilteredTask(data, tab);
 
-    renderTask(filteredData, tab)
+  renderTask(filteredData, tab);
 }
 
-const delay = (ms) => new Promise((resolver, reject) => {
-    console.log("Delay berhasil dijalankan")
+const delay = (ms) =>
+  new Promise((resolver, reject) => {
+    console.log('Delay berhasil dijalankan');
     setTimeout(() => {
-        resolver("DONE BOSKUU~");
-    }, ms)
-}) 
+      resolver('DONE BOSKUU~');
+    }, ms);
+  });
 
 function createTask(title, priority, deadline) {
-    const id = crypto.randomUUID()
-    const now = new Date().toISOString()
-    
-    const newTaskData = {
-        "id": id,
-        "title": title,
-        "deadline": deadline,
-        "priority": priority,
-        "completed": false,
-        "createdAt": now,
-        "updatedAt": now,
-    }
+  const id = crypto.randomUUID();
+  const now = new Date().toISOString();
 
-    return newTaskData
+  const newTaskData = {
+    id: id,
+    title: title,
+    deadline: deadline,
+    priority: priority,
+    completed: false,
+    createdAt: now,
+    updatedAt: now,
+  };
+
+  return newTaskData;
 }
 
-
 function updateTask(id, updatedAt, isChecked) {
-    let taskData = readTask();
+  let taskData = readTask();
 
-    const newTaskData= taskData.map((val, idx) => {
-        if (id == val.id) {
-            taskData = {
-                ...val,
-                completed: isChecked,
-                updatedAt: updatedAt
-            }
+  const newTaskData = taskData.map((val, idx) => {
+    if (id == val.id) {
+      taskData = {
+        ...val,
+        completed: isChecked,
+        updatedAt: updatedAt,
+      };
 
-            return taskData
-        }
+      return taskData;
+    }
 
-        return val
-    })
+    return val;
+  });
 
-    return newTaskData
+  return newTaskData;
 }
 
 function renderTask(taskData, activeTab) {
-    const taskList = document.querySelector(".todo-ul")
-    taskList.innerHTML = ""
+  const taskList = document.querySelector('.todo-ul');
+  taskList.innerHTML = '';
 
-    const colorHighPriority = "#d6453d"
-    const colorMedPriority = "#F59E0B"
-    const colorLowPriority = "#27A663"
+  const colorHighPriority = '#d6453d';
+  const colorMedPriority = '#F59E0B';
+  const colorLowPriority = '#27A663';
 
-    let noTaskHTML = ""
+  let noTaskHTML = '';
 
-    if (taskData.length === 0) {
-        let teksNothingTodoHTML = ""
+  if (taskData.length === 0) {
+    let teksNothingTodoHTML = '';
 
-        if (activeTab === 'completed') {
-            teksNothingTodoHTML = `
+    if (activeTab === 'completed') {
+      teksNothingTodoHTML = `
                 <h2>No Completed Tasks</h2>
                 <p>Keep your hard work~</p>
-            `
-        } else {
-            teksNothingTodoHTML = `
+            `;
+    } else {
+      teksNothingTodoHTML = `
                 <h2>Your todo list is empty</h2>
                 <p>Let's get started! Add your first task and stay on track.</p>
-            `
-        }
-        noTaskHTML = 
-            `
+            `;
+    }
+    noTaskHTML = `
                 <div class="emptyTask">
                     <svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
                     <title id="title">Todo checklist empty state icon</title>
@@ -134,33 +132,32 @@ function renderTask(taskData, activeTab) {
                         ${teksNothingTodoHTML}
                     </div>
                 </div>
-            `
-        taskList.insertAdjacentHTML('beforeend', noTaskHTML)
-    } else  {    
-        taskList.innerHTML = "";
-        taskData.forEach(e => {
-            const taskId = e.id
-            const title = e.title
-            const priority = e.priority
-            const deadline = e.deadline
-            const isCompleted = e.completed ? "is-completed" : [];
-            const checked = e.completed ? "checked" : [];
+            `;
+    taskList.insertAdjacentHTML('beforeend', noTaskHTML);
+  } else {
+    taskList.innerHTML = '';
+    taskData.forEach((e) => {
+      const taskId = e.id;
+      const title = e.title;
+      const priority = e.priority;
+      const deadline = e.deadline;
+      const isCompleted = e.completed ? 'is-completed' : [];
+      const checked = e.completed ? 'checked' : [];
 
-            let currentColorPriority = ""
+      let currentColorPriority = '';
 
-            if (priority === "High") {
-                currentColorPriority = colorHighPriority;
-            } else if (priority === "Medium") {
-                currentColorPriority = colorMedPriority;
-            } else {
-                currentColorPriority = colorLowPriority;
-            }
+      if (priority === 'High') {
+        currentColorPriority = colorHighPriority;
+      } else if (priority === 'Medium') {
+        currentColorPriority = colorMedPriority;
+      } else {
+        currentColorPriority = colorLowPriority;
+      }
 
-            let deadlineHTML = "";
+      let deadlineHTML = '';
 
-            if (deadline) {
-                deadlineHTML = 
-                `
+      if (deadline) {
+        deadlineHTML = `
 
                                         <div class="task-deadline">
                                             <span class="label-span">Deadline todo</span>
@@ -168,14 +165,13 @@ function renderTask(taskData, activeTab) {
                                                 <h4>${deadline}</h4>
                                             </div>
                                         </div>
-                `
-            }
+                `;
+      }
 
-            let priorityHTML = '';
+      let priorityHTML = '';
 
-            if (priority) {
-                priorityHTML = 
-                `
+      if (priority) {
+        priorityHTML = `
                                         <div class="task-prior">
                                             <span class="label-span">Priority</span>
                                             <div class="info-priority">
@@ -185,10 +181,10 @@ function renderTask(taskData, activeTab) {
                                                 <h4>${priority}</h4>
                                             </div>
                                         </div>
-                `
-            }
+                `;
+      }
 
-            const taskHTML = `
+      const taskHTML = `
                     <li class="todo-list" data-id="${taskId}">
                         <article class="todo-item ${isCompleted}">
                             <label class="todo-checkbox">
@@ -211,106 +207,116 @@ function renderTask(taskData, activeTab) {
                             </div>
                         </article>
                     </li>
-                `
+                `;
 
-            taskList.insertAdjacentHTML('beforeend', taskHTML)
-        })
-    }
+      taskList.insertAdjacentHTML('beforeend', taskHTML);
+    });
+  }
 }
 
-form.addEventListener("submit", function(event) {
-    event.preventDefault()
-    
-    const selectedPriority = document.querySelector('input[name="task-priority"]:checked')
-    const TaskPriority = selectedPriority ? selectedPriority.value : "";
+form.addEventListener('submit', function (event) {
+  event.preventDefault();
 
-    const currentTaskName = taskName.value.trim()
-    const currentTaskDeadline = deadline.value
+  const selectedPriority = document.querySelector(
+    'input[name="task-priority"]:checked'
+  );
+  const TaskPriority = selectedPriority ? selectedPriority.value : '';
 
-    if (currentTaskName === "") {
-        console.log("Tidak ada task yang dikirim");
-        return
-    }
+  const currentTaskName = taskName.value.trim();
+  const currentTaskDeadline = deadline.value;
 
-    console.log("Task baru berhasil dibuat!")
-    const newTaskData = createTask(currentTaskName, TaskPriority, currentTaskDeadline)
+  if (currentTaskName === '') {
+    console.log('Tidak ada task yang dikirim');
+    return;
+  }
 
-    let taskList = readTask()
+  console.log('Task baru berhasil dibuat!');
+  const newTaskData = createTask(
+    currentTaskName,
+    TaskPriority,
+    currentTaskDeadline
+  );
 
-    taskList.push(newTaskData)
-    saveTask(taskList)
+  let taskList = readTask();
 
-    // Show Data berdasarkan Tab Active
-    renderCurrentView()
+  taskList.push(newTaskData);
+  saveTask(taskList);
 
-    // Reset Form
-    form.reset()
-})
+  // Show Data berdasarkan Tab Active
+  renderCurrentView();
 
-todoUL.addEventListener("change", async (event) => {
-    if (!event.target.matches(".todo-checkbox input[type='checkbox']")) {
-        return
-    }
+  // Reset Form
+  form.reset();
+});
 
-    let inputTask = event.target;
-    let todoItem = inputTask.closest(".todo-item");
-    let isChecked = event.target.checked
+todoUL.addEventListener('change', async (event) => {
+  if (!event.target.matches(".todo-checkbox input[type='checkbox']")) {
+    return;
+  }
 
-    // Tahap 1: Menambahkan is-completed agar animasi dicoret.
-    todoItem.classList.toggle("is-completed", isChecked);
+  let inputTask = event.target;
+  let todoItem = inputTask.closest('.todo-item');
+  let isChecked = event.target.checked;
 
-    const currentTaskID = todoItem.closest(".todo-list").dataset.id;
-    const updatedAt = new Date().toISOString();
+  // Tahap 1: Menambahkan is-completed agar animasi dicoret.
+  todoItem.classList.toggle('is-completed', isChecked);
 
-    // Tahap 2: Update Task Data
-    let newTaskData = updateTask(currentTaskID, updatedAt, isChecked);
-    saveTask(newTaskData)
+  const currentTaskID = todoItem.closest('.todo-list').dataset.id;
+  const updatedAt = new Date().toISOString();
 
-    // Tahap 2.5: Delay
-    await delay(500);
+  // Tahap 2: Update Task Data
+  let newTaskData = updateTask(currentTaskID, updatedAt, isChecked);
+  saveTask(newTaskData);
 
-    // Tahap 3: Update Render Data based on situation
-    renderCurrentView()
-})
+  // Tahap 2.5: Delay
+  await delay(500);
 
-todoUL.addEventListener("click", (event) => {
-    const buttonDelete = event.target.closest(".task-action button[aria-label='Delete Task']")
+  // Tahap 3: Update Render Data based on situation
+  renderCurrentView();
+});
 
-    if (!buttonDelete) {
-        return
-    }
+todoUL.addEventListener('click', (event) => {
+  const buttonDelete = event.target.closest(
+    ".task-action button[aria-label='Delete Task']"
+  );
 
-    const isDelete = buttonDelete.matches(".task-action button[aria-label='Delete Task']")
+  if (!buttonDelete) {
+    return;
+  }
 
-    const currentTaskId = event.target.closest(".todo-list").dataset.id;
+  const isDelete = buttonDelete.matches(
+    ".task-action button[aria-label='Delete Task']"
+  );
 
-    if (isDelete) {
-        let data = readTask();
+  const currentTaskId = event.target.closest('.todo-list').dataset.id;
 
-        let taskData = data.filter(x => x.id != currentTaskId)
-        saveTask(taskData)
-    }
+  if (isDelete) {
+    let data = readTask();
 
-    // Tahap 3: Update Render Data based on situation
-    renderCurrentView();
-})
+    let taskData = data.filter((x) => x.id != currentTaskId);
+    saveTask(taskData);
+  }
 
-tabBar.addEventListener("click", (e) => {
-    if (!e.target.matches("span")) {
-        return
-    }
+  // Tahap 3: Update Render Data based on situation
+  renderCurrentView();
+});
 
-    // Reset all tab to false first
-    let allButton = tabBar.querySelectorAll(".tab-bar button[type='button']")
+tabBar.addEventListener('click', (e) => {
+  if (!e.target.matches('span')) {
+    return;
+  }
 
-    allButton.forEach((val,idx) => {
-        val.setAttribute("aria-selected", false)
-    })
-    
-    // then render again
-    let currentActiveTab = e.target.closest("button")
-    currentActiveTab.setAttribute("aria-selected", "true")
+  // Reset all tab to false first
+  let allButton = tabBar.querySelectorAll(".tab-bar button[type='button']");
 
-    taskData = readTask();
-    renderCurrentView()
-})
+  allButton.forEach((val, idx) => {
+    val.setAttribute('aria-selected', false);
+  });
+
+  // then render again
+  let currentActiveTab = e.target.closest('button');
+  currentActiveTab.setAttribute('aria-selected', 'true');
+
+  taskData = readTask();
+  renderCurrentView();
+});

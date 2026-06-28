@@ -17,7 +17,9 @@ Masalah utamanya ada pada timing pemasangan event listener.
 Kode seperti ini hanya mencari checkbox yang sudah ada saat kode dijalankan:
 
 ```js
-const allTodoCheckbox = document.querySelectorAll(".todo-checkbox input[type='checkbox']");
+const allTodoCheckbox = document.querySelectorAll(
+  ".todo-checkbox input[type='checkbox']"
+);
 ```
 
 Jika setelah itu `renderTask()` membuat todo baru, checkbox baru tersebut belum punya event listener.
@@ -25,7 +27,7 @@ Jika setelah itu `renderTask()` membuat todo baru, checkbox baru tersebut belum 
 Di project ini, `renderTask()` juga menghapus dan membuat ulang isi list:
 
 ```js
-taskList.innerHTML = "";
+taskList.innerHTML = '';
 ```
 
 Artinya elemen `<li>`, `<article>`, dan `<input>` lama bisa hilang dan diganti elemen baru. Jika listener dipasang langsung ke checkbox lama, listener tersebut ikut hilang bersama elemennya.
@@ -45,24 +47,26 @@ Pendekatan ini memasang event listener langsung ke setiap checkbox setelah todo 
 
 ```js
 function attachCheckboxListeners() {
-    const allTodoCheckbox = document.querySelectorAll(".todo-checkbox input[type='checkbox']");
+  const allTodoCheckbox = document.querySelectorAll(
+    ".todo-checkbox input[type='checkbox']"
+  );
 
-    allTodoCheckbox.forEach((checkbox) => {
-        checkbox.addEventListener("change", function () {
-            const taskItem = checkbox.closest(".todo-item");
-            const todoList = checkbox.closest(".todo-list");
+  allTodoCheckbox.forEach((checkbox) => {
+    checkbox.addEventListener('change', function () {
+      const taskItem = checkbox.closest('.todo-item');
+      const todoList = checkbox.closest('.todo-list');
 
-            taskItem.classList.toggle("is-completed", checkbox.checked);
+      taskItem.classList.toggle('is-completed', checkbox.checked);
 
-            const newTaskData = updateTask(
-                todoList.dataset.id,
-                new Date().toISOString(),
-                checkbox.checked
-            );
+      const newTaskData = updateTask(
+        todoList.dataset.id,
+        new Date().toISOString(),
+        checkbox.checked
+      );
 
-            saveTask(newTaskData);
-        });
+      saveTask(newTaskData);
     });
+  });
 }
 ```
 
@@ -83,26 +87,26 @@ Trade-off:
 Pendekatan ini memasang satu event listener ke parent yang stabil, yaitu `.todo-ul`.
 
 ```js
-const taskList = document.querySelector(".todo-ul");
+const taskList = document.querySelector('.todo-ul');
 
-taskList.addEventListener("change", function (event) {
-    if (!event.target.matches(".todo-checkbox input[type='checkbox']")) {
-        return;
-    }
+taskList.addEventListener('change', function (event) {
+  if (!event.target.matches(".todo-checkbox input[type='checkbox']")) {
+    return;
+  }
 
-    const checkbox = event.target;
-    const taskItem = checkbox.closest(".todo-item");
-    const todoList = checkbox.closest(".todo-list");
+  const checkbox = event.target;
+  const taskItem = checkbox.closest('.todo-item');
+  const todoList = checkbox.closest('.todo-list');
 
-    taskItem.classList.toggle("is-completed", checkbox.checked);
+  taskItem.classList.toggle('is-completed', checkbox.checked);
 
-    const newTaskData = updateTask(
-        todoList.dataset.id,
-        new Date().toISOString(),
-        checkbox.checked
-    );
+  const newTaskData = updateTask(
+    todoList.dataset.id,
+    new Date().toISOString(),
+    checkbox.checked
+  );
 
-    saveTask(newTaskData);
+  saveTask(newTaskData);
 });
 ```
 
@@ -131,165 +135,169 @@ Pola yang aman:
 
 ```js
 function updateTask(id, updatedAt, isChecked) {
-    const taskData = readTask();
+  const taskData = readTask();
 
-    return taskData.map((task) => {
-        if (id === task.id) {
-            return {
-                ...task,
-                completed: isChecked,
-                updatedAt: updatedAt
-            };
-        }
+  return taskData.map((task) => {
+    if (id === task.id) {
+      return {
+        ...task,
+        completed: isChecked,
+        updatedAt: updatedAt,
+      };
+    }
 
-        return task;
-    });
+    return task;
+  });
 }
 ```
 
 Jangan mengganti `taskData` menjadi satu object saja, karena `renderTask()` membutuhkan array agar bisa memakai `forEach()`.
 
 # Learning Notes: Rapihin main.js
+
 ### Cara berpikir
 
-  Kode di js/main.js:1 sebenarnya sudah punya fondasi yang bagus untuk proyek todo sederhana: ada fungsi createTask, readTask, saveTask, updateTask, dan event delegation di .todo-ul. Itu
-  tanda Anda sudah mulai memisahkan “data task” dari “interaksi DOM”.
+Kode di js/main.js:1 sebenarnya sudah punya fondasi yang bagus untuk proyek todo sederhana: ada fungsi createTask, readTask, saveTask, updateTask, dan event delegation di .todo-ul. Itu
+tanda Anda sudah mulai memisahkan “data task” dari “interaksi DOM”.
 
-  Masalah utamanya bukan karena kodenya “jelek”, tapi karena beberapa tanggung jawab masih bercampur:
+Masalah utamanya bukan karena kodenya “jelek”, tapi karena beberapa tanggung jawab masih bercampur:
 
-  - fungsi render juga menentukan HTML, warna priority, empty state, checkbox state, dan class completed
-  - event handler tab langsung membaca data, filter data, update aria, dan render
-  - event submit/delete/update belum punya satu pintu render yang konsisten
-  - nama fungsi belum konsisten antara renderAllTask() dan renderTask()
+- fungsi render juga menentukan HTML, warna priority, empty state, checkbox state, dan class completed
+- event handler tab langsung membaca data, filter data, update aria, dan render
+- event submit/delete/update belum punya satu pintu render yang konsisten
+- nama fungsi belum konsisten antara renderAllTask() dan renderTask()
 
-  ### Kelebihan kode saat ini
+### Kelebihan kode saat ini
 
-  1. Data model cukup jelas
-     Di createTask(), task punya id, title, deadline, priority, completed, createdAt, dan updatedAt. Ini sudah bagus untuk fitur lanjutan.
+1. Data model cukup jelas
+   Di createTask(), task punya id, title, deadline, priority, completed, createdAt, dan updatedAt. Ini sudah bagus untuk fitur lanjutan.
 
-  2. Pakai crypto.randomUUID()
-     Ini lebih aman daripada id manual berbasis angka sederhana.
+2. Pakai crypto.randomUUID()
+   Ini lebih aman daripada id manual berbasis angka sederhana.
 
-  3. Sudah ada fungsi storage
-     readTask() dan saveTask() membuat akses localStorage tidak tersebar terlalu jauh.
+3. Sudah ada fungsi storage
+   readTask() dan saveTask() membuat akses localStorage tidak tersebar terlalu jauh.
 
-  4. Event delegation sudah benar arahnya
-     Handler checkbox dan delete dipasang ke .todo-ul, bukan ke setiap item. Ini cocok karena item dirender ulang secara dinamis.
+4. Event delegation sudah benar arahnya
+   Handler checkbox dan delete dipasang ke .todo-ul, bukan ke setiap item. Ini cocok karena item dirender ulang secara dinamis.
 
-  5. Rencana tab sudah mengarah ke konsep filter
-     all, pending, dan completed secara mental memang sebaiknya dianggap sebagai “filter view”, bukan sebagai tiga data berbeda.
+5. Rencana tab sudah mengarah ke konsep filter
+   all, pending, dan completed secara mental memang sebaiknya dianggap sebagai “filter view”, bukan sebagai tiga data berbeda.
 
-  ### Kekurangan utama
+### Kekurangan utama
 
-  1. Ada bug nama fungsi render
-     Di beberapa tempat Anda memanggil renderTask(...), misalnya js/main.js:185, js/main.js:250, js/main.js:284. Tapi fungsi yang ada adalah renderAllTask(...) di js/main.js:33.
+1. Ada bug nama fungsi render
+   Di beberapa tempat Anda memanggil renderTask(...), misalnya js/main.js:185, js/main.js:250, js/main.js:284. Tapi fungsi yang ada adalah renderAllTask(...) di js/main.js:33.
 
-     Ini membuat alur render tidak konsisten. Kalau kode masih “works”, kemungkinan ada kondisi tertentu yang belum kena, atau browser sudah berhenti di error saat action tertentu.
+   Ini membuat alur render tidak konsisten. Kalau kode masih “works”, kemungkinan ada kondisi tertentu yang belum kena, atau browser sudah berhenti di error saat action tertentu.
 
-  2. Variabel global tidak sengaja
-     allData = readTask() di js/main.js:1, juga pendingData, completedData, dan allData di bagian tab tidak pakai const/let.
+2. Variabel global tidak sengaja
+   allData = readTask() di js/main.js:1, juga pendingData, completedData, dan allData di bagian tab tidak pakai const/let.
 
-     Ini membuat variabel jadi global implisit. Untuk belajar JavaScript, ini penting dibiasakan: selalu pakai const atau let.
+   Ini membuat variabel jadi global implisit. Untuk belajar JavaScript, ini penting dibiasakan: selalu pakai const atau let.
 
-  3. Render belum mencerminkan completed state dengan rapi
-     Di js/main.js:133, class menjadi ${isCompleted}, hasilnya bisa true atau false, bukan class yang bermakna.
+3. Render belum mencerminkan completed state dengan rapi
+   Di js/main.js:133, class menjadi ${isCompleted}, hasilnya bisa true atau false, bukan class yang bermakna.
 
-     Lebih baik nanti:
+   Lebih baik nanti:
 
-     const completedClass = task.completed ? "is-completed" : "";
+   const completedClass = task.completed ? "is-completed" : "";
 
-     Checkbox juga belum diberi atribut checked saat task sudah completed.
+   Checkbox juga belum diberi atribut checked saat task sudah completed.
 
-  4. Delete task salah konsep
-     Fungsi deleteTask(id) di js/main.js:230 melakukan localStorage.removeItem(id), padahal semua task disimpan dalam satu key: "task".
+4. Delete task salah konsep
+   Fungsi deleteTask(id) di js/main.js:230 melakukan localStorage.removeItem(id), padahal semua task disimpan dalam satu key: "task".
 
-     Yang benar secara konsep: baca array task, filter id yang ingin dihapus, simpan ulang array.
+   Yang benar secara konsep: baca array task, filter id yang ingin dihapus, simpan ulang array.
 
-  5. Ada typo fatal
-     Di js/main.js:250:
+5. Ada typo fatal
+   Di js/main.js:250:
 
-     renderTask(newDataData)
+   renderTask(newDataData)
 
-     newDataData tidak ada. Harusnya newData.
+   newDataData tidak ada. Harusnya newData.
 
-  6. Logic tab terlalu banyak di event handler
-     Bagian js/main.js:262 melakukan banyak hal sekaligus:
-      - validasi target click
-      - reset semua tab
-      - set tab aktif
-      - baca localStorage
-      - filter data
-      - render data
+6. Logic tab terlalu banyak di event handler
+   Bagian js/main.js:262 melakukan banyak hal sekaligus:
+   - validasi target click
+   - reset semua tab
+   - set tab aktif
+   - baca localStorage
+   - filter data
+   - render data
 
-     Ini yang membuat terasa spageti. Bukan karena panjangnya saja, tapi karena satu handler punya terlalu banyak alasan untuk berubah.
+   Ini yang membuat terasa spageti. Bukan karena panjangnya saja, tapi karena satu handler punya terlalu banyak alasan untuk berubah.
 
-  7. Render HTML rentan XSS
-     Karena title, deadline, dan priority langsung dimasukkan ke template string dengan innerHTML / insertAdjacentHTML, input user seperti <img onerror=alert(1)> bisa ikut menjadi HTML.
+7. Render HTML rentan XSS
+   Karena title, deadline, dan priority langsung dimasukkan ke template string dengan innerHTML / insertAdjacentHTML, input user seperti <img onerror=alert(1)> bisa ikut menjadi HTML.
 
-     Untuk learning project, ini belum harus langsung dibuat sempurna, tapi penting Anda tahu: kalau memakai HTML string dari input user, perlu escaping atau pakai textContent.
+   Untuk learning project, ini belum harus langsung dibuat sempurna, tapi penting Anda tahu: kalau memakai HTML string dari input user, perlu escaping atau pakai textContent.
 
-  ### Fokus kecil sekarang
+### Fokus kecil sekarang
 
-  Saran saya jangan langsung bikin tiga fungsi besar renderAll, renderPending, renderCompleted.
+Saran saya jangan langsung bikin tiga fungsi besar renderAll, renderPending, renderCompleted.
 
-  Lebih bersih kalau Anda punya satu fungsi render, lalu data yang masuk sudah difilter:
+Lebih bersih kalau Anda punya satu fungsi render, lalu data yang masuk sudah difilter:
 
-  function getFilteredTasks(tasks, filter) {
-      if (filter === "pending") {
-          return tasks.filter(task => !task.completed)
-      }
+function getFilteredTasks(tasks, filter) {
+if (filter === "pending") {
+return tasks.filter(task => !task.completed)
+}
 
       if (filter === "completed") {
           return tasks.filter(task => task.completed)
       }
 
       return tasks
-  }
 
-  Dengan mental model ini:
+}
 
-  - readTask() mengambil semua data
-  - getFilteredTasks() memilih data yang mau ditampilkan
-  - renderTask() hanya menggambar data yang diberikan
-  - tab hanya mengubah currentFilter
+Dengan mental model ini:
 
-  Jadi nanti flow-nya kira-kira:
+- readTask() mengambil semua data
+- getFilteredTasks() memilih data yang mau ditampilkan
+- renderTask() hanya menggambar data yang diberikan
+- tab hanya mengubah currentFilter
 
-  let currentFilter = "all"
+Jadi nanti flow-nya kira-kira:
 
-  function renderCurrentView() {
-      const tasks = readTask()
-      const filteredTasks = getFilteredTasks(tasks, currentFilter)
+let currentFilter = "all"
+
+function renderCurrentView() {
+const tasks = readTask()
+const filteredTasks = getFilteredTasks(tasks, currentFilter)
 
       renderTask(filteredTasks)
-  }
 
-  Ini kecil, tapi dampaknya besar karena form submit, delete, checkbox, dan tab semua bisa panggil fungsi yang sama: renderCurrentView().
+}
 
-  ### Contoh kecil
+Ini kecil, tapi dampaknya besar karena form submit, delete, checkbox, dan tab semua bisa panggil fungsi yang sama: renderCurrentView().
 
-  Langkah refactor pertama yang paling aman:
+### Contoh kecil
 
-  1. Rename renderAllTask menjadi renderTask.
-  2. Ganti semua pemanggilan renderTask(...) supaya benar-benar mengarah ke fungsi itu.
-  3. Tambahkan let currentFilter = "all".
-  4. Buat fungsi kecil getFilteredTasks(tasks, filter).
+Langkah refactor pertama yang paling aman:
 
-  Jangan dulu pecah semua HTML menjadi banyak fungsi. Itu bisa tahap berikutnya.
+1. Rename renderAllTask menjadi renderTask.
+2. Ganti semua pemanggilan renderTask(...) supaya benar-benar mengarah ke fungsi itu.
+3. Tambahkan let currentFilter = "all".
+4. Buat fungsi kecil getFilteredTasks(tasks, filter).
 
-  ### Tantangan Anda
+Jangan dulu pecah semua HTML menjadi banyak fungsi. Itu bisa tahap berikutnya.
 
-  Coba lakukan refactor kecil ini sendiri:
+### Tantangan Anda
 
-  - ubah renderAllTask menjadi renderTask
-  - buat getFilteredTasks(tasks, filter)
-  - buat renderCurrentView()
-  - di submit, delete, checkbox, dan tab, panggil renderCurrentView() daripada render manual satu-satu
+Coba lakukan refactor kecil ini sendiri:
 
-  ### Checkpoint review
+- ubah renderAllTask menjadi renderTask
+- buat getFilteredTasks(tasks, filter)
+- buat renderCurrentView()
+- di submit, delete, checkbox, dan tab, panggil renderCurrentView() daripada render manual satu-satu
 
-  Setelah itu, kirim ulang isi main.js atau bagian fungsi tab + render. Saya bisa bantu review apakah pemisahan tanggung jawabnya sudah lebih rapi sebelum Anda lanjut bikin logic khusus
-  untuk all, pending, dan completed.
+### Checkpoint review
+
+Setelah itu, kirim ulang isi main.js atau bagian fungsi tab + render. Saya bisa bantu review apakah pemisahan tanggung jawabnya sudah lebih rapi sebelum Anda lanjut bikin logic khusus
+untuk all, pending, dan completed.
+
 # Learning Notes: State, Filter, Render, dan Animasi Completed Task
 
 ## Momen Belajar
@@ -331,8 +339,8 @@ Tab `pending` dan `completed` sebaiknya dianggap sebagai view hasil filter, buka
 Contoh:
 
 ```js
-const pendingTasks = tasks.filter(task => !task.completed);
-const completedTasks = tasks.filter(task => task.completed);
+const pendingTasks = tasks.filter((task) => !task.completed);
+const completedTasks = tasks.filter((task) => task.completed);
 ```
 
 Sumber kebenaran tetap satu: semua task di storage.
@@ -363,15 +371,16 @@ Lalu filter dari data terbaru tersebut.
 Pola delay yang benar:
 
 ```js
-const delay = (ms) => new Promise((resolve) => {
+const delay = (ms) =>
+  new Promise((resolve) => {
     setTimeout(resolve, ms);
-});
+  });
 ```
 
 Lalu di event handler:
 
 ```js
-todoItem.classList.toggle("is-completed", isChecked);
+todoItem.classList.toggle('is-completed', isChecked);
 
 saveTask(newTaskData);
 
@@ -397,16 +406,16 @@ Contoh:
 
 ```css
 .todo-item .task-info h3::after {
-    content: "";
-    position: absolute;
-    width: 0;
-    height: 2px;
-    background-color: var(--color-text-muted);
-    transition: width 0.3s ease;
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-text-muted);
+  transition: width 0.3s ease;
 }
 
 .todo-item.is-completed .task-info h3::after {
-    width: 100%;
+  width: 100%;
 }
 ```
 
@@ -418,7 +427,7 @@ Untuk mengubah warna teks asli, target-nya bukan `::after`, tapi `h3` langsung:
 
 ```css
 .todo-item.is-completed .task-info h3 {
-    color: var(--color-text-muted);
+  color: var(--color-text-muted);
 }
 ```
 
@@ -441,7 +450,7 @@ Contoh:
 
 ```css
 h3::after {
-    content: "";
+  content: '';
 }
 ```
 
@@ -473,7 +482,7 @@ Contoh pseudo-element:
 Pseudo-element biasanya memakai dua titik dua:
 
 ```css
-::after
+::after;
 ```
 
 Dua titik dua dipakai untuk membedakan pseudo-element dari pseudo-class.
@@ -486,7 +495,7 @@ Contoh:
 
 ```css
 button:hover {
-    background-color: red;
+  background-color: red;
 }
 ```
 
@@ -512,7 +521,7 @@ Contoh pseudo-class:
 Pseudo-class memakai satu titik dua:
 
 ```css
-:hover
+:hover;
 ```
 
 ### Perbedaan Utama
@@ -531,7 +540,7 @@ Contoh dalam todo app:
 
 ```css
 .todo-checkbox input:checked ~ .checkbox-ui {
-    background-color: var(--priority-high);
+  background-color: var(--priority-high);
 }
 ```
 
@@ -541,7 +550,7 @@ Sedangkan:
 
 ```css
 .todo-item .task-info h3::after {
-    content: "";
+  content: '';
 }
 ```
 
@@ -558,7 +567,7 @@ Selector ini:
 artinya satu elemen punya dua class sekaligus:
 
 ```html
-<article class="todo-item is-completed">
+<article class="todo-item is-completed"></article>
 ```
 
 Sedangkan ini:
@@ -585,24 +594,26 @@ Agar lebih rapi, buat satu pintu render:
 
 ```js
 function getActiveTab() {
-    const activeButton = tabBar.querySelector(".tab-bar button[aria-selected='true']");
-    return activeButton.value;
+  const activeButton = tabBar.querySelector(
+    ".tab-bar button[aria-selected='true']"
+  );
+  return activeButton.value;
 }
 
 function getFilteredTasks(tasks, activeTab) {
-    if (activeTab === "completed") {
-        return tasks.filter(task => task.completed);
-    }
+  if (activeTab === 'completed') {
+    return tasks.filter((task) => task.completed);
+  }
 
-    return tasks.filter(task => !task.completed);
+  return tasks.filter((task) => !task.completed);
 }
 
 function renderCurrentView() {
-    const latestTaskData = readTask();
-    const activeTab = getActiveTab();
-    const visibleTasks = getFilteredTasks(latestTaskData, activeTab);
+  const latestTaskData = readTask();
+  const activeTab = getActiveTab();
+  const visibleTasks = getFilteredTasks(latestTaskData, activeTab);
 
-    renderTask(visibleTasks, activeTab);
+  renderTask(visibleTasks, activeTab);
 }
 ```
 

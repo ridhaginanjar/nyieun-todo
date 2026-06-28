@@ -1,106 +1,154 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/style.css" />
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
 
     <title>NyieunTudu - Task Manager</title>
-    <meta name="description" content="NyieunTudu - A simple and elegant task manager">
-</head>
+    <meta
+      name="description"
+      content="NyieunTudu - A simple and elegant task manager"
+    />
+  </head>
 
-<body>
+  <body>
     <div id="media-blocker">
-        <div class="blocker-content">
-            <h1>Ups! Something is happening!</h1>
-            <div class="message-content">
-                <iframe src="https://giphy.com/embed/4Jc1KGhWoapxatzC9l" width="360" height="360" style="" frameBorder="0" class="giphy-embed" allowFullScreen>
-                </iframe>
-                <p>
-                    <a href="https://giphy.com/gifs/jokowi-fufufafa-bahlil-4Jc1KGhWoapxatzC9l"></a>
-                </p>
-                <p>The website only can used by using desktop during this state.</p>
-                <p>Support me with money 1 Million US Dollar to make it more responsive</p>
-                <p>Please open the website on the Desktop</p>
-            </div>
+      <div class="blocker-content">
+        <h1>Ups! Something is happening!</h1>
+        <div class="message-content">
+          <iframe
+            src="https://giphy.com/embed/4Jc1KGhWoapxatzC9l"
+            width="360"
+            height="360"
+            style=""
+            frameborder="0"
+            class="giphy-embed"
+            allowfullscreen
+          >
+          </iframe>
+          <p>
+            <a
+              href="https://giphy.com/gifs/jokowi-fufufafa-bahlil-4Jc1KGhWoapxatzC9l"
+            ></a>
+          </p>
+          <p>The website only can used by using desktop during this state.</p>
+          <p>
+            Support me with money 1 Million US Dollar to make it more responsive
+          </p>
+          <p>Please open the website on the Desktop</p>
         </div>
+      </div>
     </div>
     <div id="app-content">
-    <header>
+      <header>
         <h1>NyieunTudu.</h1>
-    </header>
-        <main class="content-container">
-            <div class="todo-card">
-                <div class="date-info">
-                    <h2>What Should We Do Today?</h2>
-                    <time datetime="2026-05-06">Your little step is trully matters~</time>
-                </div>
-                <form method="POST" class="task-form">
-                    <div class="task-name">
-                        <label for="task-name">Input your task</label>
-                        <input class="task-input" name="task-name" id="task-name" placeholder="What needs to be done?">
-                    </div>
-                    <div class="form-deadline">
-                        <label for="form-deadline">Set your deadline</label>
-                        <input 
-                            type="date" 
-                            name="form-deadline" 
-                            id="form-deadline"
-                        >
-                    </div>
-                    <fieldset class="task-priority">
-                        <legend>Set Your Priority</legend>
+      </header>
+      <main class="content-container">
+        <div class="todo-card">
+          <div class="date-info">
+            <h2>What Should We Do Today?</h2>
+            <time datetime="2026-05-06"
+              >Your little step is trully matters~</time
+            >
+          </div>
+          <form method="POST" class="task-form">
+            <div class="task-name">
+              <label for="task-name">Input your task</label>
+              <input
+                class="task-input"
+                name="task-name"
+                id="task-name"
+                placeholder="What needs to be done?"
+              />
+            </div>
+            <div class="form-deadline">
+              <label for="form-deadline">Set your deadline</label>
+              <input type="date" name="form-deadline" id="form-deadline" />
+            </div>
+            <fieldset class="task-priority">
+              <legend>Set Your Priority</legend>
 
-                        <div class="priority-options">
-                            <label for="high-priority">
-                                <input type="radio" name="task-priority" id="high-priority" value="High">
-                                High Priority
-                            </label>
-                            <label for="med-priority">
-                                <input type="radio" name="task-priority" id="med-priority" value="Medium">
-                                Medium Priority
-                            </label>
-                            <label for="low-priority">
-                                <input type="radio" name="task-priority" id="low-priority" value="Low">
-                                Low Priority
-                            </label>
-                        </div>
-                    </fieldset>
-                    <button class="submit-task" type="submit">
-                        &plus; Create Task
-                    </button>
-                </form>
-            </div>
-            <div class="tab-bar" role="tablist" aria-label="todo-filter">
-                <button type="button" class="tab-btn btn-clean-border" aria-selected="true" aria-controls="panel-active" role="tab" value="pending">
-                    <span>Your Missions</span>
-                </button>
-                <button type="button" class="tab-btn btn-clean-border" aria-selected="false" aria-controls="panel-completed" role="tab" value="completed">
-                    <span>Completed Missions</span>
-                </button>
-            </div>
-            <div id="panel" role="tabpanel" aria-labelledby="tab-all">
-                <ul class="todo-ul">
-                </ul>
-                 <!-- UPCOMING FEATURE: EDIT!!!! -->
-                                
-                <!-- <button type="button" class="btn-submit" aria-label="Edit Task">
+              <div class="priority-options">
+                <label for="high-priority">
+                  <input
+                    type="radio"
+                    name="task-priority"
+                    id="high-priority"
+                    value="High"
+                  />
+                  High Priority
+                </label>
+                <label for="med-priority">
+                  <input
+                    type="radio"
+                    name="task-priority"
+                    id="med-priority"
+                    value="Medium"
+                  />
+                  Medium Priority
+                </label>
+                <label for="low-priority">
+                  <input
+                    type="radio"
+                    name="task-priority"
+                    id="low-priority"
+                    value="Low"
+                  />
+                  Low Priority
+                </label>
+              </div>
+            </fieldset>
+            <button class="submit-task" type="submit">
+              &plus; Create Task
+            </button>
+          </form>
+        </div>
+        <div class="tab-bar" role="tablist" aria-label="todo-filter">
+          <button
+            type="button"
+            class="tab-btn btn-clean-border"
+            aria-selected="true"
+            aria-controls="panel-active"
+            role="tab"
+            value="pending"
+          >
+            <span>Your Missions</span>
+          </button>
+          <button
+            type="button"
+            class="tab-btn btn-clean-border"
+            aria-selected="false"
+            aria-controls="panel-completed"
+            role="tab"
+            value="completed"
+          >
+            <span>Completed Missions</span>
+          </button>
+        </div>
+        <div id="panel" role="tabpanel" aria-labelledby="tab-all">
+          <ul class="todo-ul"></ul>
+          <!-- UPCOMING FEATURE: EDIT!!!! -->
+
+          <!-- <button type="button" class="btn-submit" aria-label="Edit Task">
                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
                          <path fill="none" stroke="#111111" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14 6l2.293-2.293a1 1 0 0 1 1.414 0l2.586 2.586a1 1 0 0 1 0 1.414L18 10m-4-4l-9.707 9.707a1 1 0 0 0-.293.707V19a1 1 0 0 0 1 1h2.586a1 1 0 0 0 .707-.293L18 10m-4-4l4 4" />
                      </svg>
                 </button> -->
-            </div>
-        </main>
-        <footer>
-            <p> &copy; 2026 NyieunTudu.</p>
-        </footer>
+        </div>
+      </main>
+      <footer>
+        <p>&copy; 2026 NyieunTudu.</p>
+      </footer>
     </div>
-</body>
-<script type="module" src="./js/main.js"></script>
+  </body>
+  <script type="module" src="./js/main.js"></script>
 </html>

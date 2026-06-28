@@ -25,7 +25,7 @@ Focus: make the current static page behave like an actual app in the browser.
 
 Learning goal: DOM events, form handling, validation, and browser default behavior.
 
-### 2. Create A Task Data Model  (DONE)
+### 2. Create A Task Data Model (DONE)
 
 - Represent every task as an object:
 
@@ -532,4 +532,3 @@ Start here to get the highest learning value from your current codebase:
 3. Save and load tasks with `localStorage`.
 
 These three tasks will teach you the core frontend loop: user input, application state, rendering, and persistence.
-
