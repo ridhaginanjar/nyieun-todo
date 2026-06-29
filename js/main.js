@@ -12,13 +12,11 @@ let taskData = readTask();
 renderCurrentView(tabBar, taskData);
 
 function getFilteredTask(taskData, activeTab) {
-  let filteredTask = [];
-
   if (activeTab === 'pending') {
-    return (filteredTask = taskData.filter((task) => task.completed != true));
+    return (taskData.filter((task) => task.completed != true));
   }
 
-  return (filteredTask = taskData.filter((task) => task.completed == true));
+  return (taskData.filter((task) => task.completed == true));
 }
 
 function getActiveTabs() {
@@ -36,7 +34,7 @@ function renderCurrentView() {
 }
 
 const delay = (ms) =>
-  new Promise((resolver, reject) => {
+  new Promise((resolver) => {
     console.log('Delay berhasil dijalankan');
     setTimeout(() => {
       resolver('DONE BOSKUU~');
@@ -63,7 +61,7 @@ function createTask(title, priority, deadline) {
 function updateTask(id, updatedAt, isChecked) {
   let taskData = readTask();
 
-  const newTaskData = taskData.map((val, idx) => {
+  const newTaskData = taskData.map((val) => {
     if (id == val.id) {
       taskData = {
         ...val,
@@ -88,23 +86,16 @@ function renderTask(taskData, activeTab) {
   const colorMedPriority = '#F59E0B';
   const colorLowPriority = '#27A663';
 
-  let noTaskHTML = '';
-
   if (taskData.length === 0) {
-    let teksNothingTodoHTML = '';
+    let teksNothingTodoHTML = activeTab === 'completed' ? `
+                    <h2>No Completed Tasks</h2>
+                    <p>Keep your hard work~</p>
+        ` : `
+                    <h2>Your todo list is empty</h2>
+                    <p>Let's get started! Add your first task and stay on track.</p>
+        `;
 
-    if (activeTab === 'completed') {
-      teksNothingTodoHTML = `
-                <h2>No Completed Tasks</h2>
-                <p>Keep your hard work~</p>
-            `;
-    } else {
-      teksNothingTodoHTML = `
-                <h2>Your todo list is empty</h2>
-                <p>Let's get started! Add your first task and stay on track.</p>
-            `;
-    }
-    noTaskHTML = `
+    let noTaskHTML = `
                 <div class="emptyTask">
                     <svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
                     <title id="title">Todo checklist empty state icon</title>
@@ -144,15 +135,7 @@ function renderTask(taskData, activeTab) {
       const isCompleted = e.completed ? 'is-completed' : [];
       const checked = e.completed ? 'checked' : [];
 
-      let currentColorPriority = '';
-
-      if (priority === 'High') {
-        currentColorPriority = colorHighPriority;
-      } else if (priority === 'Medium') {
-        currentColorPriority = colorMedPriority;
-      } else {
-        currentColorPriority = colorLowPriority;
-      }
+      let currentColorPriority = priority === 'High' ? colorHighPriority : priority === 'Medium' ? colorMedPriority : colorLowPriority ;
 
       let deadlineHTML = '';
 
@@ -309,7 +292,7 @@ tabBar.addEventListener('click', (e) => {
   // Reset all tab to false first
   let allButton = tabBar.querySelectorAll(".tab-bar button[type='button']");
 
-  allButton.forEach((val, idx) => {
+  allButton.forEach((val) => {
     val.setAttribute('aria-selected', false);
   });
 
